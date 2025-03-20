@@ -23,29 +23,38 @@
 #include "led.h"
 #include "switch.h"
 /*==================[macros and definitions]=================================*/
-#define CONFIG_BLINK_PERIOD 1000
+#define CONFIG_BLINK_PERIOD 100
 /*==================[internal data definition]===============================*/
 
 /*==================[internal functions declaration]=========================*/
 
 /*==================[external functions definition]==========================*/
 void app_main(void){
-	uint8_t teclas;
-	LedsInit();
-	SwitchesInit();
-    while(1)    {
-    	teclas  = SwitchesRead();
-    	switch(teclas){
-    		case SWITCH_1:
-				printf("LED1\n");
-    			LedToggle(LED_1);
-    		break;
-    		case SWITCH_2:
-				printf("LED2\n");
-    			LedToggle(LED_2);
-    		break;
-    	}
-	    LedToggle(LED_3);
-		vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
-	}
+    
+    uint8_t teclas;
+    
+    LedsInit();
+    SwitchesInit();
+
+    while (1) {
+        teclas = SwitchesRead();
+
+        if ((teclas & SWITCH_1) && (teclas & SWITCH_2)) {
+            LedOn(LED_3);
+            vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
+            LedOff(LED_3);
+        }
+        else if (teclas & SWITCH_1) {
+            LedOn(LED_1);
+            vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
+            LedOff(LED_1);
+        }
+        else if (teclas & SWITCH_2) {
+            LedOn(LED_2);
+            vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
+            LedOff(LED_2);
+        }
+
+        vTaskDelay(CONFIG_BLINK_PERIOD / portTICK_PERIOD_MS);
+    }
 }

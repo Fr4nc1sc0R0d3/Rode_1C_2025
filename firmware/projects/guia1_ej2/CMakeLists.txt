@@ -3,8 +3,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 list(APPEND EXTRA_COMPONENT_DIRS "../../drivers")
-list(APPEND EXTRA_COMPONENT_DIRS $ENV{IDF_PATH}/components/mqtt)
 
 include_directories(${PROJECT_NAME} ../../drivers)
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(0_blinking)
+project(guia1_ej2)
