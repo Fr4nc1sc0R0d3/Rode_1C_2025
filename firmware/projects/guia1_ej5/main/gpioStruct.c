@@ -26,35 +26,56 @@
 /*==================[inclusions]=============================================*/
 #include <stdio.h>
 #include <stdint.h>
-#include "funcionBCD.h"
+#include <gpio_mcu.h>
+#include <funcionBCD.h>
 /*==================[macros and definitions]=================================*/
 
 /*==================[internal data definition]===============================*/
 
 /*==================[internal functions declaration]=========================*/
 
+typedef struct {
+    gpio_t pin;
+    io_t dir;
+} gpioConf_t;
+
+
 
 
 /*==================[external functions definition]==========================*/
 void app_main(void){
-    
-    // Ejemplo de uso de convertToBcdArray
+	
+    // Inicializacion de pines.
+    gpioConf_t gpioConfiguracion[4]= {{GPIO_20, GPIO_OUTPUT},{GPIO_21, GPIO_OUTPUT},{GPIO_22, GPIO_OUTPUT},{GPIO_23, GPIO_OUTPUT}};
+    for(int8_t i = 0; i < 4; i ++) {
+        GPIOInit(gpioConfiguracion[i].pin,gpioConfiguracion[i].dir);
+    }
+
+
     uint32_t numero = 1234;       // Número a convertir
     uint8_t digitos = 4;           // Cantidad de dígitos a convertir
     uint8_t bcd_result[10];        // Array para almacenar los dígitos BCD (máximo 10 dígitos para uint32_t)
-    
-    // Llamar a la función
     int8_t resultado = convertToBcdArray(numero, digitos, bcd_result);
     
     // Verificar el resultado
     if(resultado == 0){
-        printf("Conversión exitosa. Dígitos BCD (en orden inverso): ");
+        printf("Conversión exitosa.");
+        printf("\n");
+        printf("Dígitos BCD (en orden inverso): ");
         for(int i = 0; i < digitos; i++){
             printf("%d ", bcd_result[i]);
         }
-        printf("\n");
+
+        for(int8_t i = 0; i<digitos; i++) {
+            printf("Digito BCD: %d\n", bcd_result[i]);
+            printf("/n");
+            setEstadoGPIO(bcd_result[i], gpioConfiguracion);
+        }
+
     } else {
         printf("Error en la conversión\n");
     }
+
+
 }
 /*==================[end of file]============================================*/
