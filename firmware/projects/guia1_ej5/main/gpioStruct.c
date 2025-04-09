@@ -1,26 +1,29 @@
-/*! @mainpage Template
+/*!
+ * @mainpage Ejercicio 5 - Guia 1
  *
- * @section genDesc General Description
+ * @section descripcion_codigo Descripción general del código
  *
- * This section describes how the program works.
+ * El objetivo de este programa es convertir un número entero (por ejemplo, 1234) en su 
+ * representación BCD (Decimal Codificado en Binario), y luego mostrar cada dígito individual 
+ * a través de pines GPIO, utilizando una función que activa los pines de salida según los bits 
+ * correspondientes al dígito BCD.
  *
- * <a href="https://drive.google.com/...">Operation Example</a>
+ * Para lograr esto, el programa realiza los siguientes pasos:
+ * - Inicializa un arreglo de estructuras `gpioConf_t` para configurar los GPIO 20 a 23 como salidas.
+ * - Convierte el número entero a un arreglo de dígitos BCD utilizando la función `convertToBcdArray`.
+ * - Itera por cada dígito BCD y lo envía a la función `BCDToGPIO`, la cual activa los GPIO en función 
+ *   del valor binario del dígito.
  *
- * @section hardConn Hardware Connection
+ * El mapeo de bits se realiza de la siguiente forma:
+ * - b0 → GPIO_20  
+ * - b1 → GPIO_21  
+ * - b2 → GPIO_22  
+ * - b3 → GPIO_23  
  *
- * |    Peripheral  |   ESP32   	|
- * |:--------------:|:--------------|
- * | 	PIN_X	 	| 	GPIO_X		|
+ * De esta manera, cada dígito decimal se convierte en una señal binaria.
  *
  *
- * @section changelog Changelog
- *
- * |   Date	    | Description                                    |
- * |:----------:|:-----------------------------------------------|
- * | 12/09/2023 | Document creation		                         |
- *
- * @author Albano Peñalva (albano.penalva@uner.edu.ar)
- *
+ * @author Francisco Rode (francisco.rode@ingenieria.uner.edu.ar)
  */
 
 /*==================[inclusions]=============================================*/
@@ -28,17 +31,12 @@
 #include <stdint.h>
 #include <gpio_mcu.h>
 #include <funcionBCD.h>
+#include <cambiarEstadoGPIO.h>
 /*==================[macros and definitions]=================================*/
 
 /*==================[internal data definition]===============================*/
 
 /*==================[internal functions declaration]=========================*/
-
-typedef struct {
-    gpio_t pin;
-    io_t dir;
-} gpioConf_t;
-
 
 
 
@@ -69,7 +67,7 @@ void app_main(void){
         for(int8_t i = 0; i<digitos; i++) {
             printf("Digito BCD: %d\n", bcd_result[i]);
             printf("/n");
-            setEstadoGPIO(bcd_result[i], gpioConfiguracion);
+            BCDToGPIO(bcd_result[i], gpioConfiguracion);
         }
 
     } else {

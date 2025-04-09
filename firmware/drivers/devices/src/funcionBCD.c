@@ -1,25 +1,22 @@
 #include "funcionBCD.h"
-#include <stdio.h>
-#include <stdint.h>
 
-int8_t convertToBcdArray(uint32_t data, uint8_t digits, uint8_t *bcd_number) {
-
-	// Retorna 0, en caso de exito, y -1 en caso contrario.
-
-    // Verificar que el puntero no sea nulo
-    if (bcd_number == NULL) {
-        return -1; // Error: puntero nulo
+/**
+ * @brief Convierte un número a un arreglo BCD (Decimal Codificado en Binario).
+ *
+ * @param numero Número a convertir.
+ * @param digitos Cantidad de dígitos que se desean convertir.
+ * @param bcd_array Puntero a un arreglo donde se guardarán los dígitos.
+ * @return int8_t 0 si fue exitoso, -1 si ocurrió un error.
+ */
+int8_t convertToBcdArray(uint32_t numero, uint8_t digitos, uint8_t *bcd_array) {
+    if(digitos == 0 || digitos > 10) {
+        return -1;  // Error por parámetro inválido
     }
 
-    // Verificar que el número de dígitos sea válido
-    if (digits == 0 || digits > 10) {
-        return -1; // Error: número de dígitos inválido, ya que un numero de 32 bits se representa con 10 digitos, y la cantidad de digitos no puede ser 0, ya que no se estaria extrayendo ningun digito.
+    for(uint8_t i = 0; i < digitos; i++) {
+        bcd_array[i] = numero % 10;
+        numero /= 10;
     }
 
-    for (int i=0; i<digits; i++) {
-		bcd_number[i]=data%10;  				
-		data/=10;                               
-	}
-	
-    return 0; // Éxito
+    return 0;
 }
