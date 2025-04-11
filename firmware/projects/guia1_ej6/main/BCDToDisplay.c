@@ -1,4 +1,4 @@
-/*! @mainpage Ejercicio 5 - Guia 1
+/*! @mainpage Ejercicio 6 - Guia 1
  *
  * @section descripcion_codigo Descripción general del código
  *
