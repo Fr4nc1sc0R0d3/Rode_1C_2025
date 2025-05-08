@@ -1,16 +1,20 @@
-/*! @mainpage Blinking
+/*! @mainpage Procesamiento de señal de salida de sensor ultrasonico HCSR04 implementando tareas
  *
- * \section genDesc General Description
+ * @section descripcionGeneral Descripcion general
  *
- * This example makes LED_1, LED_2 and LED_3 blink at different rates, using FreeRTOS tasks.
+ * Este proyecto utiliza el sensor ultrasónico HC-SR04 para medir distancias.
+ * Las mediciones se procesan y se visualizan en un display LCD, mientras que tres LEDs
+ * indican visualmente el rango de distancia detectado. El sistema cuenta con tres tareas:
  * 
- * @section changelog Changelog
+ * - Una tarea para realizar la medición con el sensor ultrasónico.
+ * - Una tarea para mostrar los resultados en el display LCD.
+ * - Una tarea para la lectura de teclas que permite activar/desactivar la medición y congelar el valor mostrado.
  *
- * |   Date	    | Description                                    |
- * |:----------:|:-----------------------------------------------|
- * | 12/09/2023 | Document creation		                         |
- *
- * @author Albano Peñalva (albano.penalva@uner.edu.ar)
+ * Este enfoque esta basado en el uso de tareas concurrentes, las cuales responden segun el tiempo asignado que tienen. 
+ * Además, permite al usuario interactuar con el sistema para pausar la visualización o desactivar la medición del sensor según se requiera.
+ * 
+ * 
+ * @author Francisco Rode (francisco.rode@ingenieria.edu.ar)
  *
  */
 
@@ -18,169 +22,224 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <gpio_mcu.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "led.h"
+#include "switch.h"
 #include <hc_sr04.h>
+#include "lcditse0803.h"
 
 /*==================[macros and definitions]=================================*/
-#define CONFIG_BLINK_PERIOD_LED_1 1000
-#define CONFIG_BLINK_PERIOD_LED_2 1500
-#define CONFIG_BLINK_PERIOD_LED_3 500
+/**
+ * @def MEDICION_INFERIOR
+ * @brief Umbral inferior de distancia en centímetros para el encendido de LEDs.
+ */
+#define MEDICION_INFERIOR 10
+
+/**
+ * @def MEDICION_INTERMEDIA
+ * @brief Umbral intermedio de distancia en centímetros para el encendido de LEDs.
+ */
+#define MEDICION_INTERMEDIA 20
+
+/**
+ * @def MEDICION_SUPERIOR
+ * @brief Umbral superior de distancia en centímetros para el encendido de LEDs.
+ */
+#define MEDICION_SUPERIOR 30
+
+/**
+ * @def DELAY_MS_TASK_MEDICION
+ * @brief Retardo en milisegundos entre cada medición del sensor.
+ */
+#define DELAY_MS_TASK_MEDICION 1000
+
+/**
+ * @def DELAY_MS_TASK_VISUALIZACION
+ * @brief Retardo en milisegundos entre cada actualización del display.
+ */
+#define DELAY_MS_TASK_VISUALIZACION 1000
+
+/**
+ * @def DELAY_MS_TASK_TECLAS
+ * @brief Retardo en milisegundos entre cada lectura de teclas.
+ */
+#define DELAY_MS_TASK_TECLAS 100
+
+/**
+ * @def PROFUNDIDAD_STACK_TASK_MEDICION
+ * @brief Tamaño del stack para la tarea de medición.
+ */
+#define PROFUNDIDAD_STACK_TASK_MEDICION 2048
+
+/**
+ * @def PROFUNDIDAD_STACK_TASK_VISUALIZACION
+ * @brief Tamaño del stack para la tarea de visualización.
+ */
+#define PROFUNDIDAD_STACK_TASK_VISUALIZACION 2048
+
+/**
+ * @def PROFUNDIDAD_STACK_TASK_TECLAS
+ * @brief Tamaño del stack para la tarea de teclas.
+ */
+#define PROFUNDIDAD_STACK_TASK_TECLAS 2048
+
+/**
+ * @def PRIORIDAD_TASK_MEDICION
+ * @brief Prioridad de la tarea de medición.
+ */
+#define PRIORIDAD_TASK_MEDICION 5
+
+/**
+ * @def PRIORIDAD_TASK_VISUALIZACION
+ * @brief Prioridad de la tarea de visualización.
+ */
+#define PRIORIDAD_TASK_VISUALIZACION 5
+
+/**
+ * @def PRIORIDAD_TASK_TECLAS
+ * @brief Prioridad de la tarea de lectura de teclas.
+ */
+#define PRIORIDAD_TASK_TECLAS 5
+
 /*==================[internal data definition]===============================*/
+/** @brief Handle de la tarea de visualización. */
 TaskHandle_t visualizarTaskHandle = NULL;
+
+/** @brief Handle de la tarea de medición. */
 TaskHandle_t medirTaskHandle = NULL;
+
+/** @brief Handle de la tarea de lectura de teclas. */
 TaskHandle_t teclasTaskHandle = NULL;
-extern bool medicionActivada = false; 
-extern bool visualizacionActivada = false;
-extern uint16_t medicionSensor;
-typedef struct {
-    gpio_t pin;
-    io_t dir;
-} gpioConf_t;
-extern gpioConf_t gpioConfiguracion[4]= {{GPIO_20, GPIO_OUTPUT},{GPIO_21, GPIO_OUTPUT},{GPIO_22, GPIO_OUTPUT},{GPIO_23, GPIO_OUTPUT}};
-extern gpioConf_t gpioSeleccion[3] = {{GPIO_19, GPIO_OUTPUT},{GPIO_18, GPIO_OUTPUT}, {GPIO_9, GPIO_OUTPUT}};
+
+/** @brief Flag para habilitar o deshabilitar la medición. */
+bool medicionActivada = false; 
+
+/** @brief Flag para habilitar la visualización retenida. */
+bool visualizacionActivada = false;
+
+/** @brief Flag para congelar el valor mostrado. */
+bool holdMedicion = false;
+
+/** @brief Última medición obtenida del sensor. */
+uint16_t medicionSensor;
+
+/** @brief Valor retenido de la medición para visualización congelada. */
+uint16_t medicionHold;
 
 /*==================[internal functions declaration]=========================*/
-
-int8_t getSwitchPresionada() {
-    teclas  = SwitchesRead();
-    switch(teclas){
-        case SWITCH_1:
-            return 1
-        break;
-        case SWITCH_2:
-            return 2;
-        break;
-    }
-}
-
-int8_t convertToBcdArray(uint32_t data, uint8_t digits, uint8_t *bcd_number) {
-
-	// Retorna 0, en caso de exito, y -1 en caso contrario.
-
-    // Verificar que el puntero no sea nulo
-    if (bcd_number == NULL) {
-        return -1; // Error: puntero nulo
-    }
-
-    // Verificar que el número de dígitos sea válido
-    if (digits == 0 || digits > 10) {
-        return -1; // Error: número de dígitos inválido, ya que un numero de 32 bits se representa con 10 digitos, y la cantidad de digitos no puede ser 0, ya que no se estaria extrayendo ningun digito.
-    }
-
-    for (int i=0; i<digits; i++) {
-		bcd_number[i]=data%10;  				
-		data/=10;                               
-	}
-	
-    return 0; // Éxito
-}
-
-void BCDToGPIO(int8_t digitoBCD, gpioConf_t *vectorGPIO) {
-    
-    for(int8_t i = 0; i < 4; i ++) {
-        
-        if (digitoBCD & 1) {
-            printf("Pongo el alto el pin: %d", vectorGPIO[i].pin);
-            GPIOOn(vectorGPIO[i].pin);
-        } else {
-            printf("Pongo el bajo el pin: %d", vectorGPIO[i].pin);
-            GPIOOff(vectorGPIO[i].pin);
-        }
-
-        printf("\n");
-
-        digitoBCD = digitoBCD >> 1; // Avanza al proximo bit.
-    }
-}
-
+/**
+ * @brief Controla el encendido de los LEDs en función del valor de medición.
+ *
+ * @param medicion Valor de distancia en centímetros leída del sensor HC-SR04.
+ */
 void encenderLedsSegunMedicion(uint16_t medicion) {
-    if (medicion < 10) {
+    if (medicion < MEDICION_INFERIOR) {
         LedOff(LED_1);
         LedOff(LED_2);
         LedOff(LED_3);
     } 
-    if (medicion > 10 && medicion < 20) {
+    else if (medicion > MEDICION_INFERIOR && medicion < MEDICION_INTERMEDIA) {
         LedOn(LED_1);
         LedOff(LED_2);
         LedOff(LED_3);
     }
-    if (medicion > 20 && medicion < 30) {
+    else if (medicion > MEDICION_INTERMEDIA && medicion < MEDICION_SUPERIOR) {
         LedOn(LED_1);
         LedOn(LED_2);
         LedOff(LED_3);
     }
 
-    if (medicion > 30) {
+    else {
         LedOn(LED_1);
         LedOn(LED_2);
         LedOn(LED_3);
     }
 }
 
-void encenderLED(uint16_t medicion) {
-    uint8_t BCDArray[3];
-
-    convertToBcdArray(medicion, 3, BCDArray);
-    for(int8_t i = 0; i < 3; i ++) {
-        BCDToGPIO(BCDArray[i],gpioConfiguracion);
-        GPIOOn(gpioSeleccion[i].pin);
-        vTaskDelay(pdMS_TO_TICKS(5));
-        GPIOOff(gpioSeleccion[i].pin);
-    }
-
-}
-
-
-
+/**
+ * @brief Tarea que realiza la medición de distancia usando el sensor HC-SR04.
+ *
+ * La tarea se ejecuta cada 1 segundo si la medición está activada.
+ *
+ * @param pvParameter Parámetro no utilizado.
+ */
 static void medirTask(void *pvParameter){
     while(true){
-        medicionSensor = HcSr04ReadDistanceInCentimeters();
-        encenderLedsSegunMedicion(medicionSensor)
-        vTaskDelay(1000/portTICK_PERIOD_MS);
+        if (medicionActivada) {
+            medicionSensor = HcSr04ReadDistanceInCentimeters();
+            encenderLedsSegunMedicion(medicionSensor);
+        }
+        vTaskDelay(DELAY_MS_TASK_MEDICION/portTICK_PERIOD_MS);
+        
     }
 }
 
+/**
+ * @brief Tarea que visualiza el valor de distancia en el display LCD.
+ *
+ * Si la opción de retención está activa, se muestra el valor retenido.
+ * De lo contrario, se muestra la última medición. Si la medición está
+ * desactivada, el display se apaga.
+ *
+ * @param pvParameter Parámetro no utilizado.
+ */
 static void visualizarTask(void *pvParameter){
     while(true){
         if (medicionActivada) {
-            encenderLED(medicionSensor);
+            if (holdMedicion) {
+                LcdItsE0803Write(medicionHold);
+            } else {
+                LcdItsE0803Write(medicionSensor);  
+            }    
+        } else {
+            LcdItsE0803Off();
         }
+        vTaskDelay(DELAY_MS_TASK_VISUALIZACION/portTICK_PERIOD_MS);
     }
 }
 
+/**
+ * @brief Tarea que gestiona la lectura de las teclas.
+ *
+ * - SWITCH_1: Activa o desactiva la medición.
+ * - SWITCH_2: Congela o libera la visualización del valor actual.
+ *
+ * @param pvParameter Parámetro no utilizado.
+ */
 static void teclasTask(void *pvParameter){
     while(true){
-        int8_t numeroSwitch = getSwitchPresionada();
-        if (numeroSwitch == 1) {
-            medicionActivada = !medicionActivada;
-            visualizacionActivada = medicionActivada;
-        } if (numeroSwitch == 2) {
-            medicionActivada = !medicionActivada;
+        switch(SwitchesRead()) {
+            case SWITCH_1:
+                medicionActivada = !medicionActivada;
+                break;
+            case SWITCH_2:
+                holdMedicion = !holdMedicion;
+                if (holdMedicion == true) {
+                    medicionHold = medicionSensor;
+                }
+                break;
         }
-        vTaskDelay(100/portTICK_PERIOD_MS);
+        vTaskDelay(DELAY_MS_TASK_TECLAS/portTICK_PERIOD_MS);
     }
 }
 /*==================[external functions definition]==========================*/
+/**
+ * @brief Función principal de la aplicación.
+ *
+ * Inicializa los periféricos y crea las tareas para medición, visualización y manejo de teclas.
+ */
 void app_main(void){
+
+    // Inicializacion de perifericos
     LedsInit();
-    
- 
-    for(int8_t i = 0; i < 4; i ++) {
-        GPIOInit(gpioConfiguracion[i].pin,gpioConfiguracion[i].dir);
-    }
-    for(int8_t i = 0; i < 3; i ++) {
-        GPIOInit(gpioSeleccion[i].pin, gpioSeleccion[i].dir);
-    }
+    SwitchesInit();
+    LcdItsE0803Init();
+    HcSr04Init(GPIO_3,GPIO_2);
 
-
-
-    if (!HcSr04Init(GPIO_3, GPIO_2)) {
-        printf("Error al inicializar sensor ultrasonico.");
-        return;
-    }
-    xTaskCreate(&visualizarTask, "visualizarTask", 512, NULL, 5, &visualizarTaskHandle);
-    xTaskCreate(&medirTask, "medirTask", 512, NULL, 5, &medirTaskHandle);
-    xTaskCreate(&teclasTask, "teclasTask", 512, NULL, 5, &teclasTaskHandle);
+    // Creacion de tareas.
+    xTaskCreate(&visualizarTask, "visualizarTask", PROFUNDIDAD_STACK_TASK_VISUALIZACION, NULL, PRIORIDAD_TASK_VISUALIZACION, &visualizarTaskHandle);
+    xTaskCreate(&medirTask, "medirTask", PROFUNDIDAD_STACK_TASK_MEDICION, NULL, PRIORIDAD_TASK_MEDICION, &medirTaskHandle);
+    xTaskCreate(&teclasTask, "teclasTask", PROFUNDIDAD_STACK_TASK_TECLAS, NULL, PRIORIDAD_TASK_TECLAS, &teclasTaskHandle);
 }

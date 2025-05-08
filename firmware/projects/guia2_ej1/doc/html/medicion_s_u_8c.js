@@ -1,0 +1,25 @@
+var medicion_s_u_8c =
+[
+    [ "DELAY_MS_TASK_MEDICION", "medicion_s_u_8c.html#a8fe31ceee5806ad5a968791bb3401af8", null ],
+    [ "DELAY_MS_TASK_TECLAS", "medicion_s_u_8c.html#ab0810187919f7117c5161516a6466d11", null ],
+    [ "DELAY_MS_TASK_VISUALIZACION", "medicion_s_u_8c.html#a52991814204a40dcd143afa6bacbe18d", null ],
+    [ "MEDICION_INFERIOR", "medicion_s_u_8c.html#a06325c88850e739bba69c029414197da", null ],
+    [ "MEDICION_INTERMEDIA", "medicion_s_u_8c.html#a12fe8fec50998f5a007ccf5fac9ab582", null ],
+    [ "MEDICION_SUPERIOR", "medicion_s_u_8c.html#a2a41c3472653fff8199e27edef165186", null ],
+    [ "PRIORIDAD_TASK_MEDICION", "medicion_s_u_8c.html#a79caa4685d6bc35e17fe525bf5c5e349", null ],
+    [ "PRIORIDAD_TASK_TECLAS", "medicion_s_u_8c.html#a39e4d38a1a0b562e114357bb8e4a502c", null ],
+    [ "PRIORIDAD_TASK_VISUALIZACION", "medicion_s_u_8c.html#aecbed3530abc1fd6707e48840eff4bb3", null ],
+    [ "PROFUNDIDAD_STACK_TASK_MEDICION", "medicion_s_u_8c.html#a196179e1f9774f6272a4555e4756f358", null ],
+    [ "PROFUNDIDAD_STACK_TASK_TECLAS", "medicion_s_u_8c.html#adb6dd556b6a52a1eb38a8add68b07216", null ],
+    [ "PROFUNDIDAD_STACK_TASK_VISUALIZACION", "medicion_s_u_8c.html#a62914cc383d628dd87e074a09c540a26", null ],
+    [ "app_main", "medicion_s_u_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70", null ],
+    [ "encenderLedsSegunMedicion", "medicion_s_u_8c.html#a318736a5f0d472479449a049d20e6986", null ],
+    [ "holdMedicion", "medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d", null ],
+    [ "medicionActivada", "medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3", null ],
+    [ "medicionHold", "medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f", null ],
+    [ "medicionSensor", "medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6", null ],
+    [ "medirTaskHandle", "medicion_s_u_8c.html#a4c1eb594b9229430acfca622788009ec", null ],
+    [ "teclasTaskHandle", "medicion_s_u_8c.html#a70551402a328f455f10d6cf66153a24a", null ],
+    [ "visualizacionActivada", "medicion_s_u_8c.html#a7b62334d9dc049816e0e5d474fbd6e56", null ],
+    [ "visualizarTaskHandle", "medicion_s_u_8c.html#a45479f665de457e55fb1aaab4df32ddd", null ]
+];

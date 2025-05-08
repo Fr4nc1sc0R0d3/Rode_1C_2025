@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ejercicio 1 - Guia 2: Fichero Fuente /home/franrode/Desktop/Facultad/Electronica programable/Rode_1C_2025/firmware/projects/guia2_ej1/main/medicionSU.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fiuner.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Ejercicio 1 - Guia 2
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar','.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('medicion_s_u_8c_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">medicionSU.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="medicion_s_u_8c.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">/*==================[inclusions]=============================================*/</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="gpio__mcu_8h.html">gpio_mcu.h</a>&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;freertos/FreeRTOS.h&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;freertos/task.h&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="led_8h.html">led.h</a>&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="switch_8h.html">switch.h</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="hc__sr04_8h.html">hc_sr04.h</a>&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="lcditse0803_8h.html">lcditse0803.h</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/*==================[macros and definitions]=================================*/</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a06325c88850e739bba69c029414197da">   38</a></span>&#160;<span class="preprocessor">#define MEDICION_INFERIOR 10</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a12fe8fec50998f5a007ccf5fac9ab582">   44</a></span>&#160;<span class="preprocessor">#define MEDICION_INTERMEDIA 20</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a2a41c3472653fff8199e27edef165186">   50</a></span>&#160;<span class="preprocessor">#define MEDICION_SUPERIOR 30</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a8fe31ceee5806ad5a968791bb3401af8">   56</a></span>&#160;<span class="preprocessor">#define DELAY_MS_TASK_MEDICION 1000</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a52991814204a40dcd143afa6bacbe18d">   62</a></span>&#160;<span class="preprocessor">#define DELAY_MS_TASK_VISUALIZACION 1000</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#ab0810187919f7117c5161516a6466d11">   68</a></span>&#160;<span class="preprocessor">#define DELAY_MS_TASK_TECLAS 100</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a196179e1f9774f6272a4555e4756f358">   74</a></span>&#160;<span class="preprocessor">#define PROFUNDIDAD_STACK_TASK_MEDICION 2048</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a62914cc383d628dd87e074a09c540a26">   80</a></span>&#160;<span class="preprocessor">#define PROFUNDIDAD_STACK_TASK_VISUALIZACION 2048</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#adb6dd556b6a52a1eb38a8add68b07216">   86</a></span>&#160;<span class="preprocessor">#define PROFUNDIDAD_STACK_TASK_TECLAS 2048</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a79caa4685d6bc35e17fe525bf5c5e349">   92</a></span>&#160;<span class="preprocessor">#define PRIORIDAD_TASK_MEDICION 5</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#aecbed3530abc1fd6707e48840eff4bb3">   98</a></span>&#160;<span class="preprocessor">#define PRIORIDAD_TASK_VISUALIZACION 5</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a39e4d38a1a0b562e114357bb8e4a502c">  104</a></span>&#160;<span class="preprocessor">#define PRIORIDAD_TASK_TECLAS 5</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">/*==================[internal data definition]===============================*/</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a45479f665de457e55fb1aaab4df32ddd">  108</a></span>&#160;TaskHandle_t <a class="code" href="medicion_s_u_8c.html#a45479f665de457e55fb1aaab4df32ddd">visualizarTaskHandle</a> = <a class="code" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a4c1eb594b9229430acfca622788009ec">  111</a></span>&#160;TaskHandle_t <a class="code" href="medicion_s_u_8c.html#a4c1eb594b9229430acfca622788009ec">medirTaskHandle</a> = <a class="code" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a70551402a328f455f10d6cf66153a24a">  114</a></span>&#160;TaskHandle_t <a class="code" href="medicion_s_u_8c.html#a70551402a328f455f10d6cf66153a24a">teclasTaskHandle</a> = <a class="code" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">  117</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">medicionActivada</a> = <span class="keyword">false</span>; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a7b62334d9dc049816e0e5d474fbd6e56">  120</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="medicion_s_u_8c.html#a7b62334d9dc049816e0e5d474fbd6e56">visualizacionActivada</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">  123</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">holdMedicion</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">  126</a></span>&#160;uint16_t <a class="code" href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">medicionSensor</a>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f">  129</a></span>&#160;uint16_t <a class="code" href="medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f">medicionHold</a>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">/*==================[internal functions declaration]=========================*/</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a318736a5f0d472479449a049d20e6986">  137</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="medicion_s_u_8c.html#a318736a5f0d472479449a049d20e6986">encenderLedsSegunMedicion</a>(uint16_t medicion) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">if</span> (medicion &lt; <a class="code" href="medicion_s_u_8c.html#a06325c88850e739bba69c029414197da">MEDICION_INFERIOR</a>) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <a class="code" href="group___l_e_d.html#ga4fd07c9f7fab15d0d07389a38f4a39d8">LedOff</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a11a9adb9054de1fe01d6a6750075f57b">LED_1</a>);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <a class="code" href="group___l_e_d.html#ga4fd07c9f7fab15d0d07389a38f4a39d8">LedOff</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a00af6b2437d9982f1f125d2cc2537c41">LED_2</a>);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <a class="code" href="group___l_e_d.html#ga4fd07c9f7fab15d0d07389a38f4a39d8">LedOff</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a3e1b1af0f74f675e4eb7bd18229adfd3">LED_3</a>);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    } </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (medicion &gt; <a class="code" href="medicion_s_u_8c.html#a06325c88850e739bba69c029414197da">MEDICION_INFERIOR</a> &amp;&amp; medicion &lt; <a class="code" href="medicion_s_u_8c.html#a12fe8fec50998f5a007ccf5fac9ab582">MEDICION_INTERMEDIA</a>) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <a class="code" href="group___l_e_d.html#ga883021aaef65f080a52b1852172ecbc3">LedOn</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a11a9adb9054de1fe01d6a6750075f57b">LED_1</a>);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <a class="code" href="group___l_e_d.html#ga4fd07c9f7fab15d0d07389a38f4a39d8">LedOff</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a00af6b2437d9982f1f125d2cc2537c41">LED_2</a>);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <a class="code" href="group___l_e_d.html#ga4fd07c9f7fab15d0d07389a38f4a39d8">LedOff</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a3e1b1af0f74f675e4eb7bd18229adfd3">LED_3</a>);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (medicion &gt; <a class="code" href="medicion_s_u_8c.html#a12fe8fec50998f5a007ccf5fac9ab582">MEDICION_INTERMEDIA</a> &amp;&amp; medicion &lt; <a class="code" href="medicion_s_u_8c.html#a2a41c3472653fff8199e27edef165186">MEDICION_SUPERIOR</a>) {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <a class="code" href="group___l_e_d.html#ga883021aaef65f080a52b1852172ecbc3">LedOn</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a11a9adb9054de1fe01d6a6750075f57b">LED_1</a>);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <a class="code" href="group___l_e_d.html#ga883021aaef65f080a52b1852172ecbc3">LedOn</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a00af6b2437d9982f1f125d2cc2537c41">LED_2</a>);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <a class="code" href="group___l_e_d.html#ga4fd07c9f7fab15d0d07389a38f4a39d8">LedOff</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a3e1b1af0f74f675e4eb7bd18229adfd3">LED_3</a>);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <a class="code" href="group___l_e_d.html#ga883021aaef65f080a52b1852172ecbc3">LedOn</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a11a9adb9054de1fe01d6a6750075f57b">LED_1</a>);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <a class="code" href="group___l_e_d.html#ga883021aaef65f080a52b1852172ecbc3">LedOn</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a00af6b2437d9982f1f125d2cc2537c41">LED_2</a>);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <a class="code" href="group___l_e_d.html#ga883021aaef65f080a52b1852172ecbc3">LedOn</a>(<a class="code" href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a3e1b1af0f74f675e4eb7bd18229adfd3">LED_3</a>);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;}</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> medirTask(<span class="keywordtype">void</span> *pvParameter){</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">while</span>(<span class="keyword">true</span>){</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">medicionActivada</a>) {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            <a class="code" href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">medicionSensor</a> = <a class="code" href="group___h_c___s_r04.html#ga73a5aaa2183e55d104d4e0c2c435e251">HcSr04ReadDistanceInCentimeters</a>();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <a class="code" href="medicion_s_u_8c.html#a318736a5f0d472479449a049d20e6986">encenderLedsSegunMedicion</a>(<a class="code" href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">medicionSensor</a>);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        vTaskDelay(<a class="code" href="medicion_s_u_8c.html#a8fe31ceee5806ad5a968791bb3401af8">DELAY_MS_TASK_MEDICION</a>/portTICK_PERIOD_MS);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> visualizarTask(<span class="keywordtype">void</span> *pvParameter){</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">while</span>(<span class="keyword">true</span>){</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">medicionActivada</a>) {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">holdMedicion</a>) {</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                <a class="code" href="group___l_c_d___i_t_s_e0803.html#ga77a9887ee733d3212c3e4996c47f1b9d">LcdItsE0803Write</a>(<a class="code" href="medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f">medicionHold</a>);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                <a class="code" href="group___l_c_d___i_t_s_e0803.html#ga77a9887ee733d3212c3e4996c47f1b9d">LcdItsE0803Write</a>(<a class="code" href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">medicionSensor</a>);  </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            }    </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <a class="code" href="group___l_c_d___i_t_s_e0803.html#gae84766fe1e3b5550b1ca4bbc70f00504">LcdItsE0803Off</a>();</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        }</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        vTaskDelay(<a class="code" href="medicion_s_u_8c.html#a52991814204a40dcd143afa6bacbe18d">DELAY_MS_TASK_VISUALIZACION</a>/portTICK_PERIOD_MS);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> teclasTask(<span class="keywordtype">void</span> *pvParameter){</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">while</span>(<span class="keyword">true</span>){</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">switch</span>(<a class="code" href="group___switch.html#gae2e64bab117e3f8ffc08ecae51f5e262">SwitchesRead</a>()) {</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="group___switch.html#gga8caa2df6d25fea5a14eb4533df1d5cfaa24caa46485c5fec2211b3ebd8a1eee77">SWITCH_1</a>:</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;                <a class="code" href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">medicionActivada</a> = !<a class="code" href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">medicionActivada</a>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="group___switch.html#gga8caa2df6d25fea5a14eb4533df1d5cfaa73fda67835d5d51aa9251fee781a7434">SWITCH_2</a>:</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;                <a class="code" href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">holdMedicion</a> = !<a class="code" href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">holdMedicion</a>;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">holdMedicion</a> == <span class="keyword">true</span>) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                    <a class="code" href="medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f">medicionHold</a> = <a class="code" href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">medicionSensor</a>;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;                }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        }</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        vTaskDelay(<a class="code" href="medicion_s_u_8c.html#ab0810187919f7117c5161516a6466d11">DELAY_MS_TASK_TECLAS</a>/portTICK_PERIOD_MS);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;}</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment">/*==================[external functions definition]==========================*/</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="medicion_s_u_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">  233</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="medicion_s_u_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">app_main</a>(<span class="keywordtype">void</span>){</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="comment">// Inicializacion de perifericos</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <a class="code" href="group___l_e_d.html#gacba669c3e8f52e45d1bea50c2e63b250">LedsInit</a>();</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <a class="code" href="group___switch.html#ga8eb2865a73bf2d2b9fd6760958a0cc3c">SwitchesInit</a>();</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <a class="code" href="group___l_c_d___i_t_s_e0803.html#ga1c08a1458380c8f0a02a3763d14c8bf3">LcdItsE0803Init</a>();</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <a class="code" href="group___h_c___s_r04.html#ga9d26cc017fe45c607d08231ebffb46c4">HcSr04Init</a>(<a class="code" href="group___g_i_o_p.html#ggaf65604147d0244c9b13cfdc865ad5393a426d08ab85ab3aebbb53eed1a32dfb71">GPIO_3</a>,<a class="code" href="group___g_i_o_p.html#ggaf65604147d0244c9b13cfdc865ad5393abbea21b656f1917800d9d279b685f38e">GPIO_2</a>);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="comment">// Creacion de tareas.</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    xTaskCreate(&amp;visualizarTask, <span class="stringliteral">&quot;visualizarTask&quot;</span>, <a class="code" href="medicion_s_u_8c.html#a62914cc383d628dd87e074a09c540a26">PROFUNDIDAD_STACK_TASK_VISUALIZACION</a>, <a class="code" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="medicion_s_u_8c.html#aecbed3530abc1fd6707e48840eff4bb3">PRIORIDAD_TASK_VISUALIZACION</a>, &amp;<a class="code" href="medicion_s_u_8c.html#a45479f665de457e55fb1aaab4df32ddd">visualizarTaskHandle</a>);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    xTaskCreate(&amp;medirTask, <span class="stringliteral">&quot;medirTask&quot;</span>, <a class="code" href="medicion_s_u_8c.html#a196179e1f9774f6272a4555e4756f358">PROFUNDIDAD_STACK_TASK_MEDICION</a>, <a class="code" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="medicion_s_u_8c.html#a79caa4685d6bc35e17fe525bf5c5e349">PRIORIDAD_TASK_MEDICION</a>, &amp;<a class="code" href="medicion_s_u_8c.html#a4c1eb594b9229430acfca622788009ec">medirTaskHandle</a>);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    xTaskCreate(&amp;teclasTask, <span class="stringliteral">&quot;teclasTask&quot;</span>, <a class="code" href="medicion_s_u_8c.html#adb6dd556b6a52a1eb38a8add68b07216">PROFUNDIDAD_STACK_TASK_TECLAS</a>, <a class="code" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="medicion_s_u_8c.html#a39e4d38a1a0b562e114357bb8e4a502c">PRIORIDAD_TASK_TECLAS</a>, &amp;<a class="code" href="medicion_s_u_8c.html#a70551402a328f455f10d6cf66153a24a">teclasTaskHandle</a>);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
+<div class="ttc" id="agpio__mcu_8h_html"><div class="ttname"><a href="gpio__mcu_8h.html">gpio_mcu.h</a></div></div>
+<div class="ttc" id="agroup___g_i_o_p_html_ggaf65604147d0244c9b13cfdc865ad5393a426d08ab85ab3aebbb53eed1a32dfb71"><div class="ttname"><a href="group___g_i_o_p.html#ggaf65604147d0244c9b13cfdc865ad5393a426d08ab85ab3aebbb53eed1a32dfb71">GPIO_3</a></div><div class="ttdeci">@ GPIO_3</div><div class="ttdef"><b>Definition:</b> <a href="gpio__mcu_8h_source.html#l00055">gpio_mcu.h:55</a></div></div>
+<div class="ttc" id="agroup___g_i_o_p_html_ggaf65604147d0244c9b13cfdc865ad5393abbea21b656f1917800d9d279b685f38e"><div class="ttname"><a href="group___g_i_o_p.html#ggaf65604147d0244c9b13cfdc865ad5393abbea21b656f1917800d9d279b685f38e">GPIO_2</a></div><div class="ttdeci">@ GPIO_2</div><div class="ttdef"><b>Definition:</b> <a href="gpio__mcu_8h_source.html#l00054">gpio_mcu.h:54</a></div></div>
+<div class="ttc" id="agroup___h_c___s_r04_html_ga73a5aaa2183e55d104d4e0c2c435e251"><div class="ttname"><a href="group___h_c___s_r04.html#ga73a5aaa2183e55d104d4e0c2c435e251">HcSr04ReadDistanceInCentimeters</a></div><div class="ttdeci">uint16_t HcSr04ReadDistanceInCentimeters(void)</div><div class="ttdoc">Read distance.</div><div class="ttdef"><b>Definition:</b> <a href="hc__sr04_8c_source.html#l00045">hc_sr04.c:45</a></div></div>
+<div class="ttc" id="agroup___h_c___s_r04_html_ga9d26cc017fe45c607d08231ebffb46c4"><div class="ttname"><a href="group___h_c___s_r04.html#ga9d26cc017fe45c607d08231ebffb46c4">HcSr04Init</a></div><div class="ttdeci">bool HcSr04Init(gpio_t echo, gpio_t trigger)</div><div class="ttdoc">Driver for reading distance with HC-SR04 module.</div><div class="ttdef"><b>Definition:</b> <a href="hc__sr04_8c_source.html#l00034">hc_sr04.c:34</a></div></div>
+<div class="ttc" id="agroup___l_c_d___i_t_s_e0803_html_ga1c08a1458380c8f0a02a3763d14c8bf3"><div class="ttname"><a href="group___l_c_d___i_t_s_e0803.html#ga1c08a1458380c8f0a02a3763d14c8bf3">LcdItsE0803Init</a></div><div class="ttdeci">bool LcdItsE0803Init(void)</div><div class="ttdoc">Driver for using the 3 digits numeric display in ESP-EDU.</div><div class="ttdef"><b>Definition:</b> <a href="lcditse0803_8c_source.html#l00037">lcditse0803.c:37</a></div></div>
+<div class="ttc" id="agroup___l_c_d___i_t_s_e0803_html_ga77a9887ee733d3212c3e4996c47f1b9d"><div class="ttname"><a href="group___l_c_d___i_t_s_e0803.html#ga77a9887ee733d3212c3e4996c47f1b9d">LcdItsE0803Write</a></div><div class="ttdeci">bool LcdItsE0803Write(uint16_t value)</div><div class="ttdoc">Function to display value a LCD Module for EDU-CIAA.</div><div class="ttdef"><b>Definition:</b> <a href="lcditse0803_8c_source.html#l00054">lcditse0803.c:54</a></div></div>
+<div class="ttc" id="agroup___l_c_d___i_t_s_e0803_html_gae84766fe1e3b5550b1ca4bbc70f00504"><div class="ttname"><a href="group___l_c_d___i_t_s_e0803.html#gae84766fe1e3b5550b1ca4bbc70f00504">LcdItsE0803Off</a></div><div class="ttdeci">void LcdItsE0803Off(void)</div><div class="ttdoc">Turn off display.</div><div class="ttdef"><b>Definition:</b> <a href="lcditse0803_8c_source.html#l00087">lcditse0803.c:87</a></div></div>
+<div class="ttc" id="agroup___l_e_d_html_ga4fd07c9f7fab15d0d07389a38f4a39d8"><div class="ttname"><a href="group___l_e_d.html#ga4fd07c9f7fab15d0d07389a38f4a39d8">LedOff</a></div><div class="ttdeci">uint8_t LedOff(led_t led)</div><div class="ttdoc">Turn off a specific LED.</div><div class="ttdef"><b>Definition:</b> <a href="led_8c_source.html#l00065">led.c:65</a></div></div>
+<div class="ttc" id="agroup___l_e_d_html_ga883021aaef65f080a52b1852172ecbc3"><div class="ttname"><a href="group___l_e_d.html#ga883021aaef65f080a52b1852172ecbc3">LedOn</a></div><div class="ttdeci">uint8_t LedOn(led_t led)</div><div class="ttdoc">Turn on a specific LED.</div><div class="ttdef"><b>Definition:</b> <a href="led_8c_source.html#l00046">led.c:46</a></div></div>
+<div class="ttc" id="agroup___l_e_d_html_gacba669c3e8f52e45d1bea50c2e63b250"><div class="ttname"><a href="group___l_e_d.html#gacba669c3e8f52e45d1bea50c2e63b250">LedsInit</a></div><div class="ttdeci">uint8_t LedsInit(void)</div><div class="ttdoc">ESP-EDU LEDs initialization.</div><div class="ttdef"><b>Definition:</b> <a href="led_8c_source.html#l00031">led.c:31</a></div></div>
+<div class="ttc" id="agroup___l_e_d_html_ggab6831a7d06c0a2bc69f9b024f6445a80a00af6b2437d9982f1f125d2cc2537c41"><div class="ttname"><a href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a00af6b2437d9982f1f125d2cc2537c41">LED_2</a></div><div class="ttdeci">@ LED_2</div><div class="ttdef"><b>Definition:</b> <a href="led_8h_source.html#l00033">led.h:33</a></div></div>
+<div class="ttc" id="agroup___l_e_d_html_ggab6831a7d06c0a2bc69f9b024f6445a80a11a9adb9054de1fe01d6a6750075f57b"><div class="ttname"><a href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a11a9adb9054de1fe01d6a6750075f57b">LED_1</a></div><div class="ttdeci">@ LED_1</div><div class="ttdef"><b>Definition:</b> <a href="led_8h_source.html#l00034">led.h:34</a></div></div>
+<div class="ttc" id="agroup___l_e_d_html_ggab6831a7d06c0a2bc69f9b024f6445a80a3e1b1af0f74f675e4eb7bd18229adfd3"><div class="ttname"><a href="group___l_e_d.html#ggab6831a7d06c0a2bc69f9b024f6445a80a3e1b1af0f74f675e4eb7bd18229adfd3">LED_3</a></div><div class="ttdeci">@ LED_3</div><div class="ttdef"><b>Definition:</b> <a href="led_8h_source.html#l00032">led.h:32</a></div></div>
+<div class="ttc" id="agroup___switch_html_ga8eb2865a73bf2d2b9fd6760958a0cc3c"><div class="ttname"><a href="group___switch.html#ga8eb2865a73bf2d2b9fd6760958a0cc3c">SwitchesInit</a></div><div class="ttdeci">int8_t SwitchesInit(void)</div><div class="ttdoc">ESP-EDU switches initialization.</div><div class="ttdef"><b>Definition:</b> <a href="switch_8c_source.html#l00029">switch.c:29</a></div></div>
+<div class="ttc" id="agroup___switch_html_gae2e64bab117e3f8ffc08ecae51f5e262"><div class="ttname"><a href="group___switch.html#gae2e64bab117e3f8ffc08ecae51f5e262">SwitchesRead</a></div><div class="ttdeci">int8_t SwitchesRead(void)</div><div class="ttdoc">Read all the switches state.</div><div class="ttdef"><b>Definition:</b> <a href="switch_8c_source.html#l00038">switch.c:38</a></div></div>
+<div class="ttc" id="agroup___switch_html_gga8caa2df6d25fea5a14eb4533df1d5cfaa24caa46485c5fec2211b3ebd8a1eee77"><div class="ttname"><a href="group___switch.html#gga8caa2df6d25fea5a14eb4533df1d5cfaa24caa46485c5fec2211b3ebd8a1eee77">SWITCH_1</a></div><div class="ttdeci">@ SWITCH_1</div><div class="ttdef"><b>Definition:</b> <a href="switch_8h_source.html#l00032">switch.h:32</a></div></div>
+<div class="ttc" id="agroup___switch_html_gga8caa2df6d25fea5a14eb4533df1d5cfaa73fda67835d5d51aa9251fee781a7434"><div class="ttname"><a href="group___switch.html#gga8caa2df6d25fea5a14eb4533df1d5cfaa73fda67835d5d51aa9251fee781a7434">SWITCH_2</a></div><div class="ttdeci">@ SWITCH_2</div><div class="ttdef"><b>Definition:</b> <a href="switch_8h_source.html#l00033">switch.h:33</a></div></div>
+<div class="ttc" id="ahc__sr04_8h_html"><div class="ttname"><a href="hc__sr04_8h.html">hc_sr04.h</a></div></div>
+<div class="ttc" id="aili9341_8c_html_a070d2ce7b6bb7e5c05602aa8c308d0c4"><div class="ttname"><a href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></div><div class="ttdeci">#define NULL</div><div class="ttdef"><b>Definition:</b> <a href="ili9341_8c_source.html#l00019">ili9341.c:19</a></div></div>
+<div class="ttc" id="alcditse0803_8h_html"><div class="ttname"><a href="lcditse0803_8h.html">lcditse0803.h</a></div></div>
+<div class="ttc" id="aled_8h_html"><div class="ttname"><a href="led_8h.html">led.h</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a06325c88850e739bba69c029414197da"><div class="ttname"><a href="medicion_s_u_8c.html#a06325c88850e739bba69c029414197da">MEDICION_INFERIOR</a></div><div class="ttdeci">#define MEDICION_INFERIOR</div><div class="ttdoc">Umbral inferior de distancia en centímetros para el encendido de LEDs.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00038">medicionSU.c:38</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a12fe8fec50998f5a007ccf5fac9ab582"><div class="ttname"><a href="medicion_s_u_8c.html#a12fe8fec50998f5a007ccf5fac9ab582">MEDICION_INTERMEDIA</a></div><div class="ttdeci">#define MEDICION_INTERMEDIA</div><div class="ttdoc">Umbral intermedio de distancia en centímetros para el encendido de LEDs.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00044">medicionSU.c:44</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a196179e1f9774f6272a4555e4756f358"><div class="ttname"><a href="medicion_s_u_8c.html#a196179e1f9774f6272a4555e4756f358">PROFUNDIDAD_STACK_TASK_MEDICION</a></div><div class="ttdeci">#define PROFUNDIDAD_STACK_TASK_MEDICION</div><div class="ttdoc">Tamaño del stack para la tarea de medición.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00074">medicionSU.c:74</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a2517bde6ade3eb9a3b26d0e2a34f242d"><div class="ttname"><a href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">holdMedicion</a></div><div class="ttdeci">bool holdMedicion</div><div class="ttdoc">Flag para congelar el valor mostrado.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00123">medicionSU.c:123</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a2a41c3472653fff8199e27edef165186"><div class="ttname"><a href="medicion_s_u_8c.html#a2a41c3472653fff8199e27edef165186">MEDICION_SUPERIOR</a></div><div class="ttdeci">#define MEDICION_SUPERIOR</div><div class="ttdoc">Umbral superior de distancia en centímetros para el encendido de LEDs.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00050">medicionSU.c:50</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a318736a5f0d472479449a049d20e6986"><div class="ttname"><a href="medicion_s_u_8c.html#a318736a5f0d472479449a049d20e6986">encenderLedsSegunMedicion</a></div><div class="ttdeci">void encenderLedsSegunMedicion(uint16_t medicion)</div><div class="ttdoc">Controla el encendido de los LEDs en función del valor de medición.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00137">medicionSU.c:137</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a39e4d38a1a0b562e114357bb8e4a502c"><div class="ttname"><a href="medicion_s_u_8c.html#a39e4d38a1a0b562e114357bb8e4a502c">PRIORIDAD_TASK_TECLAS</a></div><div class="ttdeci">#define PRIORIDAD_TASK_TECLAS</div><div class="ttdoc">Prioridad de la tarea de lectura de teclas.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00104">medicionSU.c:104</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a45479f665de457e55fb1aaab4df32ddd"><div class="ttname"><a href="medicion_s_u_8c.html#a45479f665de457e55fb1aaab4df32ddd">visualizarTaskHandle</a></div><div class="ttdeci">TaskHandle_t visualizarTaskHandle</div><div class="ttdoc">Handle de la tarea de visualización.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00108">medicionSU.c:108</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a4c1eb594b9229430acfca622788009ec"><div class="ttname"><a href="medicion_s_u_8c.html#a4c1eb594b9229430acfca622788009ec">medirTaskHandle</a></div><div class="ttdeci">TaskHandle_t medirTaskHandle</div><div class="ttdoc">Handle de la tarea de medición.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00111">medicionSU.c:111</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a52991814204a40dcd143afa6bacbe18d"><div class="ttname"><a href="medicion_s_u_8c.html#a52991814204a40dcd143afa6bacbe18d">DELAY_MS_TASK_VISUALIZACION</a></div><div class="ttdeci">#define DELAY_MS_TASK_VISUALIZACION</div><div class="ttdoc">Retardo en milisegundos entre cada actualización del display.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00062">medicionSU.c:62</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a62914cc383d628dd87e074a09c540a26"><div class="ttname"><a href="medicion_s_u_8c.html#a62914cc383d628dd87e074a09c540a26">PROFUNDIDAD_STACK_TASK_VISUALIZACION</a></div><div class="ttdeci">#define PROFUNDIDAD_STACK_TASK_VISUALIZACION</div><div class="ttdoc">Tamaño del stack para la tarea de visualización.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00080">medicionSU.c:80</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a62a220082dedf2e1a9784e48cd3279f3"><div class="ttname"><a href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">medicionActivada</a></div><div class="ttdeci">bool medicionActivada</div><div class="ttdoc">Flag para habilitar o deshabilitar la medición.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00117">medicionSU.c:117</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a630544a7f0a2cc40d8a7fefab7e2fe70"><div class="ttname"><a href="medicion_s_u_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">app_main</a></div><div class="ttdeci">void app_main(void)</div><div class="ttdoc">Función principal de la aplicación.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00233">medicionSU.c:233</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a70551402a328f455f10d6cf66153a24a"><div class="ttname"><a href="medicion_s_u_8c.html#a70551402a328f455f10d6cf66153a24a">teclasTaskHandle</a></div><div class="ttdeci">TaskHandle_t teclasTaskHandle</div><div class="ttdoc">Handle de la tarea de lectura de teclas.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00114">medicionSU.c:114</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a73c18fa89d4b6b6cc4bf99f162bb7a8f"><div class="ttname"><a href="medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f">medicionHold</a></div><div class="ttdeci">uint16_t medicionHold</div><div class="ttdoc">Valor retenido de la medición para visualización congelada.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00129">medicionSU.c:129</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a79caa4685d6bc35e17fe525bf5c5e349"><div class="ttname"><a href="medicion_s_u_8c.html#a79caa4685d6bc35e17fe525bf5c5e349">PRIORIDAD_TASK_MEDICION</a></div><div class="ttdeci">#define PRIORIDAD_TASK_MEDICION</div><div class="ttdoc">Prioridad de la tarea de medición.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00092">medicionSU.c:92</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a7b62334d9dc049816e0e5d474fbd6e56"><div class="ttname"><a href="medicion_s_u_8c.html#a7b62334d9dc049816e0e5d474fbd6e56">visualizacionActivada</a></div><div class="ttdeci">bool visualizacionActivada</div><div class="ttdoc">Flag para habilitar la visualización retenida.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00120">medicionSU.c:120</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a8fe31ceee5806ad5a968791bb3401af8"><div class="ttname"><a href="medicion_s_u_8c.html#a8fe31ceee5806ad5a968791bb3401af8">DELAY_MS_TASK_MEDICION</a></div><div class="ttdeci">#define DELAY_MS_TASK_MEDICION</div><div class="ttdoc">Retardo en milisegundos entre cada medición del sensor.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00056">medicionSU.c:56</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_a918af4027c37b857a9738a571dcce4e6"><div class="ttname"><a href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">medicionSensor</a></div><div class="ttdeci">uint16_t medicionSensor</div><div class="ttdoc">Última medición obtenida del sensor.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00126">medicionSU.c:126</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_ab0810187919f7117c5161516a6466d11"><div class="ttname"><a href="medicion_s_u_8c.html#ab0810187919f7117c5161516a6466d11">DELAY_MS_TASK_TECLAS</a></div><div class="ttdeci">#define DELAY_MS_TASK_TECLAS</div><div class="ttdoc">Retardo en milisegundos entre cada lectura de teclas.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00068">medicionSU.c:68</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_adb6dd556b6a52a1eb38a8add68b07216"><div class="ttname"><a href="medicion_s_u_8c.html#adb6dd556b6a52a1eb38a8add68b07216">PROFUNDIDAD_STACK_TASK_TECLAS</a></div><div class="ttdeci">#define PROFUNDIDAD_STACK_TASK_TECLAS</div><div class="ttdoc">Tamaño del stack para la tarea de teclas.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00086">medicionSU.c:86</a></div></div>
+<div class="ttc" id="amedicion_s_u_8c_html_aecbed3530abc1fd6707e48840eff4bb3"><div class="ttname"><a href="medicion_s_u_8c.html#aecbed3530abc1fd6707e48840eff4bb3">PRIORIDAD_TASK_VISUALIZACION</a></div><div class="ttdeci">#define PRIORIDAD_TASK_VISUALIZACION</div><div class="ttdoc">Prioridad de la tarea de visualización.</div><div class="ttdef"><b>Definition:</b> <a href="medicion_s_u_8c_source.html#l00098">medicionSU.c:98</a></div></div>
+<div class="ttc" id="aswitch_8h_html"><div class="ttname"><a href="switch_8h.html">switch.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_429d80758da54da73083af4edd40d0b3.html">projects</a></li><li class="navelem"><a class="el" href="dir_a76edacacd42953d38d01797b0e2044f.html">guia2_ej1</a></li><li class="navelem"><a class="el" href="dir_8d36ede6dc7dc4ace1bb805864d9d528.html">main</a></li><li class="navelem"><a class="el" href="medicion_s_u_8c.html">medicionSU.c</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ejercicio 1 - Guia 2: Referencia del Archivo /home/franrode/Desktop/Facultad/Electronica programable/Rode_1C_2025/firmware/projects/guia2_ej1/main/medicionSU.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="fiuner.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Ejercicio 1 - Guia 2
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar','.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('medicion_s_u_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">defines</a> &#124;
+<a href="#func-members">Funciones</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia del Archivo medicionSU.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="gpio__mcu_8h_source.html">gpio_mcu.h</a>&gt;</code><br />
+<code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
+<code>#include &quot;freertos/task.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="switch_8h_source.html">switch.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="hc__sr04_8h_source.html">hc_sr04.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="lcditse0803_8h_source.html">lcditse0803.h</a>&quot;</code><br />
+</div>
+<p><a href="medicion_s_u_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+defines</h2></td></tr>
+<tr class="memitem:a06325c88850e739bba69c029414197da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a06325c88850e739bba69c029414197da">MEDICION_INFERIOR</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:a06325c88850e739bba69c029414197da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Umbral inferior de distancia en centímetros para el encendido de LEDs.  <a href="medicion_s_u_8c.html#a06325c88850e739bba69c029414197da">Más...</a><br /></td></tr>
+<tr class="separator:a06325c88850e739bba69c029414197da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12fe8fec50998f5a007ccf5fac9ab582"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a12fe8fec50998f5a007ccf5fac9ab582">MEDICION_INTERMEDIA</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:a12fe8fec50998f5a007ccf5fac9ab582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Umbral intermedio de distancia en centímetros para el encendido de LEDs.  <a href="medicion_s_u_8c.html#a12fe8fec50998f5a007ccf5fac9ab582">Más...</a><br /></td></tr>
+<tr class="separator:a12fe8fec50998f5a007ccf5fac9ab582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a41c3472653fff8199e27edef165186"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a2a41c3472653fff8199e27edef165186">MEDICION_SUPERIOR</a>&#160;&#160;&#160;30</td></tr>
+<tr class="memdesc:a2a41c3472653fff8199e27edef165186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Umbral superior de distancia en centímetros para el encendido de LEDs.  <a href="medicion_s_u_8c.html#a2a41c3472653fff8199e27edef165186">Más...</a><br /></td></tr>
+<tr class="separator:a2a41c3472653fff8199e27edef165186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fe31ceee5806ad5a968791bb3401af8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a8fe31ceee5806ad5a968791bb3401af8">DELAY_MS_TASK_MEDICION</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:a8fe31ceee5806ad5a968791bb3401af8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retardo en milisegundos entre cada medición del sensor.  <a href="medicion_s_u_8c.html#a8fe31ceee5806ad5a968791bb3401af8">Más...</a><br /></td></tr>
+<tr class="separator:a8fe31ceee5806ad5a968791bb3401af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52991814204a40dcd143afa6bacbe18d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a52991814204a40dcd143afa6bacbe18d">DELAY_MS_TASK_VISUALIZACION</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="memdesc:a52991814204a40dcd143afa6bacbe18d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retardo en milisegundos entre cada actualización del display.  <a href="medicion_s_u_8c.html#a52991814204a40dcd143afa6bacbe18d">Más...</a><br /></td></tr>
+<tr class="separator:a52991814204a40dcd143afa6bacbe18d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0810187919f7117c5161516a6466d11"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#ab0810187919f7117c5161516a6466d11">DELAY_MS_TASK_TECLAS</a>&#160;&#160;&#160;100</td></tr>
+<tr class="memdesc:ab0810187919f7117c5161516a6466d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retardo en milisegundos entre cada lectura de teclas.  <a href="medicion_s_u_8c.html#ab0810187919f7117c5161516a6466d11">Más...</a><br /></td></tr>
+<tr class="separator:ab0810187919f7117c5161516a6466d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a196179e1f9774f6272a4555e4756f358"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a196179e1f9774f6272a4555e4756f358">PROFUNDIDAD_STACK_TASK_MEDICION</a>&#160;&#160;&#160;2048</td></tr>
+<tr class="memdesc:a196179e1f9774f6272a4555e4756f358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tamaño del stack para la tarea de medición.  <a href="medicion_s_u_8c.html#a196179e1f9774f6272a4555e4756f358">Más...</a><br /></td></tr>
+<tr class="separator:a196179e1f9774f6272a4555e4756f358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62914cc383d628dd87e074a09c540a26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a62914cc383d628dd87e074a09c540a26">PROFUNDIDAD_STACK_TASK_VISUALIZACION</a>&#160;&#160;&#160;2048</td></tr>
+<tr class="memdesc:a62914cc383d628dd87e074a09c540a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tamaño del stack para la tarea de visualización.  <a href="medicion_s_u_8c.html#a62914cc383d628dd87e074a09c540a26">Más...</a><br /></td></tr>
+<tr class="separator:a62914cc383d628dd87e074a09c540a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb6dd556b6a52a1eb38a8add68b07216"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#adb6dd556b6a52a1eb38a8add68b07216">PROFUNDIDAD_STACK_TASK_TECLAS</a>&#160;&#160;&#160;2048</td></tr>
+<tr class="memdesc:adb6dd556b6a52a1eb38a8add68b07216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tamaño del stack para la tarea de teclas.  <a href="medicion_s_u_8c.html#adb6dd556b6a52a1eb38a8add68b07216">Más...</a><br /></td></tr>
+<tr class="separator:adb6dd556b6a52a1eb38a8add68b07216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79caa4685d6bc35e17fe525bf5c5e349"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a79caa4685d6bc35e17fe525bf5c5e349">PRIORIDAD_TASK_MEDICION</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a79caa4685d6bc35e17fe525bf5c5e349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prioridad de la tarea de medición.  <a href="medicion_s_u_8c.html#a79caa4685d6bc35e17fe525bf5c5e349">Más...</a><br /></td></tr>
+<tr class="separator:a79caa4685d6bc35e17fe525bf5c5e349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecbed3530abc1fd6707e48840eff4bb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#aecbed3530abc1fd6707e48840eff4bb3">PRIORIDAD_TASK_VISUALIZACION</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:aecbed3530abc1fd6707e48840eff4bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prioridad de la tarea de visualización.  <a href="medicion_s_u_8c.html#aecbed3530abc1fd6707e48840eff4bb3">Más...</a><br /></td></tr>
+<tr class="separator:aecbed3530abc1fd6707e48840eff4bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39e4d38a1a0b562e114357bb8e4a502c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a39e4d38a1a0b562e114357bb8e4a502c">PRIORIDAD_TASK_TECLAS</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memdesc:a39e4d38a1a0b562e114357bb8e4a502c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prioridad de la tarea de lectura de teclas.  <a href="medicion_s_u_8c.html#a39e4d38a1a0b562e114357bb8e4a502c">Más...</a><br /></td></tr>
+<tr class="separator:a39e4d38a1a0b562e114357bb8e4a502c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:a318736a5f0d472479449a049d20e6986"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a318736a5f0d472479449a049d20e6986">encenderLedsSegunMedicion</a> (uint16_t medicion)</td></tr>
+<tr class="memdesc:a318736a5f0d472479449a049d20e6986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controla el encendido de los LEDs en función del valor de medición.  <a href="medicion_s_u_8c.html#a318736a5f0d472479449a049d20e6986">Más...</a><br /></td></tr>
+<tr class="separator:a318736a5f0d472479449a049d20e6986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a630544a7f0a2cc40d8a7fefab7e2fe70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">app_main</a> (void)</td></tr>
+<tr class="memdesc:a630544a7f0a2cc40d8a7fefab7e2fe70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Función principal de la aplicación.  <a href="medicion_s_u_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">Más...</a><br /></td></tr>
+<tr class="separator:a630544a7f0a2cc40d8a7fefab7e2fe70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a45479f665de457e55fb1aaab4df32ddd"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a45479f665de457e55fb1aaab4df32ddd">visualizarTaskHandle</a> = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td></tr>
+<tr class="memdesc:a45479f665de457e55fb1aaab4df32ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle de la tarea de visualización.  <a href="medicion_s_u_8c.html#a45479f665de457e55fb1aaab4df32ddd">Más...</a><br /></td></tr>
+<tr class="separator:a45479f665de457e55fb1aaab4df32ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c1eb594b9229430acfca622788009ec"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a4c1eb594b9229430acfca622788009ec">medirTaskHandle</a> = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td></tr>
+<tr class="memdesc:a4c1eb594b9229430acfca622788009ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle de la tarea de medición.  <a href="medicion_s_u_8c.html#a4c1eb594b9229430acfca622788009ec">Más...</a><br /></td></tr>
+<tr class="separator:a4c1eb594b9229430acfca622788009ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70551402a328f455f10d6cf66153a24a"><td class="memItemLeft" align="right" valign="top">TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a70551402a328f455f10d6cf66153a24a">teclasTaskHandle</a> = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td></tr>
+<tr class="memdesc:a70551402a328f455f10d6cf66153a24a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle de la tarea de lectura de teclas.  <a href="medicion_s_u_8c.html#a70551402a328f455f10d6cf66153a24a">Más...</a><br /></td></tr>
+<tr class="separator:a70551402a328f455f10d6cf66153a24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62a220082dedf2e1a9784e48cd3279f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">medicionActivada</a> = false</td></tr>
+<tr class="memdesc:a62a220082dedf2e1a9784e48cd3279f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag para habilitar o deshabilitar la medición.  <a href="medicion_s_u_8c.html#a62a220082dedf2e1a9784e48cd3279f3">Más...</a><br /></td></tr>
+<tr class="separator:a62a220082dedf2e1a9784e48cd3279f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b62334d9dc049816e0e5d474fbd6e56"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a7b62334d9dc049816e0e5d474fbd6e56">visualizacionActivada</a> = false</td></tr>
+<tr class="memdesc:a7b62334d9dc049816e0e5d474fbd6e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag para habilitar la visualización retenida.  <a href="medicion_s_u_8c.html#a7b62334d9dc049816e0e5d474fbd6e56">Más...</a><br /></td></tr>
+<tr class="separator:a7b62334d9dc049816e0e5d474fbd6e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2517bde6ade3eb9a3b26d0e2a34f242d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">holdMedicion</a> = false</td></tr>
+<tr class="memdesc:a2517bde6ade3eb9a3b26d0e2a34f242d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag para congelar el valor mostrado.  <a href="medicion_s_u_8c.html#a2517bde6ade3eb9a3b26d0e2a34f242d">Más...</a><br /></td></tr>
+<tr class="separator:a2517bde6ade3eb9a3b26d0e2a34f242d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a918af4027c37b857a9738a571dcce4e6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">medicionSensor</a></td></tr>
+<tr class="memdesc:a918af4027c37b857a9738a571dcce4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Última medición obtenida del sensor.  <a href="medicion_s_u_8c.html#a918af4027c37b857a9738a571dcce4e6">Más...</a><br /></td></tr>
+<tr class="separator:a918af4027c37b857a9738a571dcce4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c18fa89d4b6b6cc4bf99f162bb7a8f"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f">medicionHold</a></td></tr>
+<tr class="memdesc:a73c18fa89d4b6b6cc4bf99f162bb7a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valor retenido de la medición para visualización congelada.  <a href="medicion_s_u_8c.html#a73c18fa89d4b6b6cc4bf99f162bb7a8f">Más...</a><br /></td></tr>
+<tr class="separator:a73c18fa89d4b6b6cc4bf99f162bb7a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Documentación de los 'defines'</h2>
+<a id="a8fe31ceee5806ad5a968791bb3401af8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fe31ceee5806ad5a968791bb3401af8">&#9670;&nbsp;</a></span>DELAY_MS_TASK_MEDICION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAY_MS_TASK_MEDICION&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retardo en milisegundos entre cada medición del sensor. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00056">56</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="ab0810187919f7117c5161516a6466d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0810187919f7117c5161516a6466d11">&#9670;&nbsp;</a></span>DELAY_MS_TASK_TECLAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAY_MS_TASK_TECLAS&#160;&#160;&#160;100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retardo en milisegundos entre cada lectura de teclas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00068">68</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a52991814204a40dcd143afa6bacbe18d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52991814204a40dcd143afa6bacbe18d">&#9670;&nbsp;</a></span>DELAY_MS_TASK_VISUALIZACION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DELAY_MS_TASK_VISUALIZACION&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retardo en milisegundos entre cada actualización del display. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00062">62</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a06325c88850e739bba69c029414197da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06325c88850e739bba69c029414197da">&#9670;&nbsp;</a></span>MEDICION_INFERIOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MEDICION_INFERIOR&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Umbral inferior de distancia en centímetros para el encendido de LEDs. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00038">38</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a12fe8fec50998f5a007ccf5fac9ab582"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12fe8fec50998f5a007ccf5fac9ab582">&#9670;&nbsp;</a></span>MEDICION_INTERMEDIA</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MEDICION_INTERMEDIA&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Umbral intermedio de distancia en centímetros para el encendido de LEDs. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00044">44</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a2a41c3472653fff8199e27edef165186"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a41c3472653fff8199e27edef165186">&#9670;&nbsp;</a></span>MEDICION_SUPERIOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MEDICION_SUPERIOR&#160;&#160;&#160;30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Umbral superior de distancia en centímetros para el encendido de LEDs. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00050">50</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a79caa4685d6bc35e17fe525bf5c5e349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79caa4685d6bc35e17fe525bf5c5e349">&#9670;&nbsp;</a></span>PRIORIDAD_TASK_MEDICION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIORIDAD_TASK_MEDICION&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prioridad de la tarea de medición. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00092">92</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a39e4d38a1a0b562e114357bb8e4a502c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39e4d38a1a0b562e114357bb8e4a502c">&#9670;&nbsp;</a></span>PRIORIDAD_TASK_TECLAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIORIDAD_TASK_TECLAS&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prioridad de la tarea de lectura de teclas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00104">104</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="aecbed3530abc1fd6707e48840eff4bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecbed3530abc1fd6707e48840eff4bb3">&#9670;&nbsp;</a></span>PRIORIDAD_TASK_VISUALIZACION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIORIDAD_TASK_VISUALIZACION&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prioridad de la tarea de visualización. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00098">98</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a196179e1f9774f6272a4555e4756f358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a196179e1f9774f6272a4555e4756f358">&#9670;&nbsp;</a></span>PROFUNDIDAD_STACK_TASK_MEDICION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROFUNDIDAD_STACK_TASK_MEDICION&#160;&#160;&#160;2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tamaño del stack para la tarea de medición. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00074">74</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="adb6dd556b6a52a1eb38a8add68b07216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb6dd556b6a52a1eb38a8add68b07216">&#9670;&nbsp;</a></span>PROFUNDIDAD_STACK_TASK_TECLAS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROFUNDIDAD_STACK_TASK_TECLAS&#160;&#160;&#160;2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tamaño del stack para la tarea de teclas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00086">86</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a62914cc383d628dd87e074a09c540a26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62914cc383d628dd87e074a09c540a26">&#9670;&nbsp;</a></span>PROFUNDIDAD_STACK_TASK_VISUALIZACION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROFUNDIDAD_STACK_TASK_VISUALIZACION&#160;&#160;&#160;2048</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tamaño del stack para la tarea de visualización. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00080">80</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones</h2>
+<a id="a630544a7f0a2cc40d8a7fefab7e2fe70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a630544a7f0a2cc40d8a7fefab7e2fe70">&#9670;&nbsp;</a></span>app_main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void app_main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Función principal de la aplicación. </p>
+<p>Inicializa los periféricos y crea las tareas para medición, visualización y manejo de teclas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00233">233</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="gpio__mcu_8h_source.html#l00054">GPIO_2</a>, <a class="el" href="gpio__mcu_8h_source.html#l00055">GPIO_3</a>, <a class="el" href="hc__sr04_8c_source.html#l00034">HcSr04Init()</a>, <a class="el" href="lcditse0803_8c_source.html#l00037">LcdItsE0803Init()</a>, <a class="el" href="led_8c_source.html#l00031">LedsInit()</a> y <a class="el" href="switch_8c_source.html#l00029">SwitchesInit()</a>.</p>
+
+</div>
+</div>
+<a id="a318736a5f0d472479449a049d20e6986"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a318736a5f0d472479449a049d20e6986">&#9670;&nbsp;</a></span>encenderLedsSegunMedicion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void encenderLedsSegunMedicion </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>medicion</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Controla el encendido de los LEDs en función del valor de medición. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">medicion</td><td>Valor de distancia en centímetros leída del sensor HC-SR04. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00137">137</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="led_8h_source.html#l00034">LED_1</a>, <a class="el" href="led_8h_source.html#l00033">LED_2</a>, <a class="el" href="led_8h_source.html#l00032">LED_3</a>, <a class="el" href="led_8c_source.html#l00065">LedOff()</a>, <a class="el" href="led_8c_source.html#l00046">LedOn()</a>, <a class="el" href="medicion_s_u_8c_source.html#l00038">MEDICION_INFERIOR</a>, <a class="el" href="medicion_s_u_8c_source.html#l00044">MEDICION_INTERMEDIA</a> y <a class="el" href="medicion_s_u_8c_source.html#l00050">MEDICION_SUPERIOR</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las variables</h2>
+<a id="a2517bde6ade3eb9a3b26d0e2a34f242d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2517bde6ade3eb9a3b26d0e2a34f242d">&#9670;&nbsp;</a></span>holdMedicion</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool holdMedicion = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag para congelar el valor mostrado. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00123">123</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a62a220082dedf2e1a9784e48cd3279f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62a220082dedf2e1a9784e48cd3279f3">&#9670;&nbsp;</a></span>medicionActivada</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool medicionActivada = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag para habilitar o deshabilitar la medición. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00117">117</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a73c18fa89d4b6b6cc4bf99f162bb7a8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c18fa89d4b6b6cc4bf99f162bb7a8f">&#9670;&nbsp;</a></span>medicionHold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t medicionHold</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Valor retenido de la medición para visualización congelada. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00129">129</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a918af4027c37b857a9738a571dcce4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a918af4027c37b857a9738a571dcce4e6">&#9670;&nbsp;</a></span>medicionSensor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t medicionSensor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Última medición obtenida del sensor. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00126">126</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a4c1eb594b9229430acfca622788009ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c1eb594b9229430acfca622788009ec">&#9670;&nbsp;</a></span>medirTaskHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t medirTaskHandle = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handle de la tarea de medición. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00111">111</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a70551402a328f455f10d6cf66153a24a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70551402a328f455f10d6cf66153a24a">&#9670;&nbsp;</a></span>teclasTaskHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t teclasTaskHandle = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handle de la tarea de lectura de teclas. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00114">114</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a7b62334d9dc049816e0e5d474fbd6e56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b62334d9dc049816e0e5d474fbd6e56">&#9670;&nbsp;</a></span>visualizacionActivada</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool visualizacionActivada = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag para habilitar la visualización retenida. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00120">120</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+<a id="a45479f665de457e55fb1aaab4df32ddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45479f665de457e55fb1aaab4df32ddd">&#9670;&nbsp;</a></span>visualizarTaskHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TaskHandle_t visualizarTaskHandle = <a class="el" href="ili9341_8c.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handle de la tarea de visualización. </p>
+
+<p class="definition">Definición en la línea <a class="el" href="medicion_s_u_8c_source.html#l00108">108</a> del archivo <a class="el" href="medicion_s_u_8c_source.html">medicionSU.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_429d80758da54da73083af4edd40d0b3.html">projects</a></li><li class="navelem"><a class="el" href="dir_a76edacacd42953d38d01797b0e2044f.html">guia2_ej1</a></li><li class="navelem"><a class="el" href="dir_8d36ede6dc7dc4ace1bb805864d9d528.html">main</a></li><li class="navelem"><a class="el" href="medicion_s_u_8c.html">medicionSU.c</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>
