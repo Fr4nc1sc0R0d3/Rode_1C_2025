@@ -48,14 +48,11 @@ TaskHandle_t handlerMuestreo;
 /** @brief Handler que maneja la tarea asociada al muestreo */
 TaskHandle_t handlerEnvioECG;
 
-/** @brief Voltaje medido */
-uint16_t voltaje = 0;
-
 /** @brief Periodo de interrupcion del timer de muestreo */
-uint16_t periodoTimerMuestreo = (1/FRECUENCIA_MUESTREO)*1000000;
+uint16_t periodoTimerMuestreo = 2000; // T=(1/500Hz)*1000000
 
 /** @brief Periodo de interrupcion del timer de envio*/
-uint16_t periodoTimerEnvio = periodoTimerMuestreo/2;
+uint16_t periodoTimerEnvio = 4000; // Mitad de perido de muestreo
 
 /** @brief Muestras de ECG */
 const char ecg[BUFFER_SIZE] = {
@@ -96,7 +93,7 @@ void FuncTimerA(void* param)
  */
 void FuncTimerB(void* param)
 {
-	vTaskNotifyGiveFromISR(enviar_task_handle, pdFALSE);
+	vTaskNotifyGiveFromISR(handlerEnvioECG, pdFALSE);
 }
 /**
  * @brief Tarea que muestrea la señal que ingresa en el canal 1
@@ -109,6 +106,7 @@ static void muestrearTask(void *pvParameter){
 	while(true)
 	{
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+		uint16_t voltaje = 0;
 		AnalogInputReadSingle(CH1, &voltaje);
 		UartSendString(UART_PC, ">tension:");
 		UartSendString(UART_PC, (const char*)UartItoa(voltaje,10));
@@ -126,11 +124,11 @@ static void enviarTask(void *pvParameter){
 	while(true)
 	{
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-		if (indiceECG == BUFFER_SIZE-1) {
-			indiceECG = 0;
-		}
 		AnalogOutputWrite(ecg[indiceECG]);
 		indiceECG++;
+		if(indiceECG >= BUFFER_SIZE){
+            indiceECG = 0;
+        }
 	}
 }
 
@@ -146,7 +144,7 @@ void app_main(void){
     };
 	timer_config_t timerEnvio = {
         .timer = TIMER_B,
-        .period = periodoTimerEnvio,
+        .period = periodoTimerMuestreo,
         .func_p = FuncTimerB,
         .param_p = NULL
     };
@@ -155,8 +153,7 @@ void app_main(void){
 		.input = CH1,
 		.mode = ADC_SINGLE,
 		.func_p = NULL, 
-		.param_p = NULL,
-		.sample_frec =NULL
+		.param_p = NULL
 	};
 	
 
@@ -167,16 +164,17 @@ void app_main(void){
 		.param_p = NULL
 	};
 	
-
+    UartInit(&puertoSerie);
 	TimerInit(&timerMuestreo); 
 	TimerInit(&timerEnvio);
-	TimerStart(TIMER_A);
-	TimerStart(TIMER_B);
+	
 	AnalogInputInit(&configAnalog);
 	AnalogOutputInit();
-	xTaskCreate(&muestrearTask, "taskMuestrear", 512, NULL, 5, &handlerMuestreo);
+	xTaskCreate(&muestrearTask, "taskMuestrear", 2048, NULL, 5, &handlerMuestreo);
 	xTaskCreate(&enviarTask, "taskEnvioECG", 2048, NULL, 5, &handlerEnvioECG);
-	UartInit(&puertoSerie);
+	TimerStart(TIMER_A);
+	TimerStart(TIMER_B);
+	
 	
 
 }
