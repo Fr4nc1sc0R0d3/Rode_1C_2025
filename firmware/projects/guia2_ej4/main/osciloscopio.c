@@ -77,9 +77,9 @@ static void muestrearTask(void *pvParameter){
 /*==================[external functions definition]==========================*/
 void app_main(void){
 
-	timer_config_t TimerA = {
+	timer_config_t timerMuestreo = {
         .timer = TIMER_A,
-        .period = (1/FRECUENCIA_MUESTREO),
+        .period = 2000,
         .func_p = FuncTimerA,
         .param_p = NULL
     };
@@ -102,13 +102,12 @@ void app_main(void){
 	};
 	
 
-
+	TimerInit(&timerMuestreo); 
+	UartInit(&puertoSerie);
 	AnalogInputInit(&configAnalog);
 	//AnalogOutputInit();
-	UartInit(&puertoSerie);
-	TimerInit(&TimerA);
-	xTaskCreate(&muestrearTask, "taskMuestrear", 2048, NULL, 5, &handlerMuestreo);
-	TimerStart(TimerA.timer);
+	xTaskCreate(&muestrearTask, "taskMuestrear", 512, NULL, 5, &handlerMuestreo);
+	TimerStart(TIMER_A);
 
 }
 /*==================[end of file]============================================*/
