@@ -1,26 +1,15 @@
-/*! @mainpage Template
+/*! @mainpage Sistema de Monitoreo ECG con ESP32
  *
- * @section genDesc General Description
+ * @section genDesc Descripción General
  *
- * This section describes how the program works.
- *
- * <a href="https://drive.google.com/...">Operation Example</a>
- *
- * @section hardConn Hardware Connection
- *
- * |    Peripheral  |   ESP32   	|
- * |:--------------:|:--------------|
- * | 	PIN_X	 	| 	GPIO_X		|
+ * Este programa implementa un sistema de monitoreo ECG que:
+ * - Muestrea una señal digital de ECG a 500Hz
+ * - Genera ondas ECG simuladas
+ * - Transmite datos muestreados vía UART
+ * - Implementa interrupciones por timer para temporización precisa
  *
  *
- * @section changelog Changelog
- *
- * |   Date	    | Description                                    |
- * |:----------:|:-----------------------------------------------|
- * | 12/09/2023 | Document creation		                         |
- *
- * @author Albano Peñalva (albano.penalva@uner.edu.ar)
- *
+ * @author Francisco Rode (francisco.rode@ingenieria.edu.ar)
  */
 
 /*==================[inclusions]=============================================*/
