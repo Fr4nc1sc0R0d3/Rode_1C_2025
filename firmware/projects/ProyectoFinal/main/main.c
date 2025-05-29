@@ -29,17 +29,17 @@
 #include <hc_sr04_multiple_control.h>
 #include <uart_mcu.h>
 #include <timer_mcu.h>
-#include <task.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_task_wdt.h"
+#include "motor_pwm.h"
 /*==================[macros and definitions]=================================*/
 
-#define PERIODO_INTERRUPCION_US 500000 // cada 0,5 seg
+#define PERIODO_INTERRUPCION_US 100000 
 
 /*==================[internal data definition]===============================*/
 
-HCSR04 vectorSensores[4] = {{GPIO_20, GPIO_16},{GPIO_19, GPIO_17},{GPIO_18,GPIO_15},{GPIO_3,GPIO_13}};
+HCSR04 vectorSensores[5] = {{GPIO_3,GPIO_2},{GPIO_9, GPIO_18},{GPIO_21,GPIO_22},{GPIO_19, GPIO_20},{GPIO_15,GPIO_17}}; 
 TaskHandle_t handlerMedicion;
 
 /*==================[internal functions declaration]=========================*/
@@ -49,20 +49,54 @@ void FuncTimer(void* param)
 	vTaskNotifyGiveFromISR(handlerMedicion, pdFALSE);
 }
 
-static void medirTask(void *pvParameter){
+static void medirTask(void *pvParameter) {
+    char buffer[32];  // Mucho más chico
 
-	while(true)
-	{
-		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-		medicionesHCSRO4 mediciones = obtenerMediciones(vectorSensores);
-	
-		UartSendString(UART_PC, "Medicion sensor 1: " + mediciones.s1);
-		UartSendString(UART_PC, "Medicion sensor 2: " + mediciones.s2);
-		UartSendString(UART_PC, "Medicion sensor 3: " + mediciones.s3);
-		UartSendString(UART_PC, "Medicion sensor 4: " + mediciones.s4);
+    while (true) {
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
+        UartSendString(UART_PC, "Iniciando medición...\r\n");
+
+        medicionesHCSRO4 mediciones = obtenerMediciones(vectorSensores);
+
+        // Sensor 1
+        itoa(mediciones.s1, buffer, 10);
+        UartSendString(UART_PC, "Medición sensor 1: ");
+        UartSendString(UART_PC, buffer);
+        UartSendString(UART_PC, " cm\r\n");
+
+		if (mediciones.s1 >= 60) {
+			setPWM(0);
+		} else {
+            printf("Prendiendo motor!");
+			uint16_t ct = 100-((5/3))*mediciones.s1;
+            
+			setPWM(ct);
+		}
+
 		
-	}
+
+        // Sensor 2
+        itoa(mediciones.s2, buffer, 10);
+        UartSendString(UART_PC, "Medición sensor 2: ");
+        UartSendString(UART_PC, buffer);
+        UartSendString(UART_PC, " cm\r\n");
+
+        // Sensor 3
+        itoa(mediciones.s3, buffer, 10);
+        UartSendString(UART_PC, "Medición sensor 3: ");
+        UartSendString(UART_PC, buffer);
+        UartSendString(UART_PC, " cm\r\n");
+
+        // Sensor 4
+        itoa(mediciones.s4, buffer, 10);
+        UartSendString(UART_PC, "Medición sensor 4: ");
+        UartSendString(UART_PC, buffer);
+        UartSendString(UART_PC, " cm\r\n");
+    }
 }
+
+
 
 /*==================[external functions definition]==========================*/
 void app_main(void){
@@ -80,5 +114,12 @@ void app_main(void){
         .func_p = FuncTimer,
         .param_p = NULL
     };
+
+	UartInit(&puertoSerie);
+	inicializarMotor(GPIO_23);
+	TimerInit(&timerMedicion);
+	TimerStart(TIMER_A);
+
+	xTaskCreate(&medirTask, "MedirDistancias", 8192, NULL, 5, &handlerMedicion);
 }
 /*==================[end of file]============================================*/
