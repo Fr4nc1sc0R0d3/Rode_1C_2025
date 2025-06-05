@@ -54,6 +54,9 @@
         },
         {
             "path": "projects/guia2_ej4"
+        },
+        {
+            "path": "projects/ProyectoFinal"
         }
     ],
     "settings": {
@@ -111,7 +114,13 @@
             "i2c_mcu.h": "c",
             "stdio.h": "c",
             "funcionbcd.h": "c",
-            "cambiarestadogpio.h": "c"
+            "cambiarestadogpio.h": "c",
+            "hc_sr04_multiple_control.h": "c",
+            "esp_task_wdt.h": "c",
+            "compare": "cpp",
+            "motor_pwm.h": "c",
+            "pwm_mcu.h": "c",
+            "ledc.h": "c"
         },
     },
     "tasks": {

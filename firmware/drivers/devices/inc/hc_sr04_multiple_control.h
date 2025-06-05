@@ -14,9 +14,10 @@ typedef struct {
     uint16_t s2;
     uint16_t s3;
     uint16_t s4;
+    uint16_t s5;
 } medicionesHCSRO4;
 
 
-uint16_t obtenerMediciones(HCSR04 *vectorGPIOs);
+medicionesHCSRO4 obtenerMediciones(HCSR04 *vectorGPIOs);
 
 #endif

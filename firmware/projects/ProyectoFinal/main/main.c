@@ -39,7 +39,7 @@
 
 /*==================[internal data definition]===============================*/
 
-HCSR04 vectorSensores[5] = {{GPIO_3,GPIO_2},{GPIO_9, GPIO_18},{GPIO_21,GPIO_22},{GPIO_19, GPIO_20},{GPIO_15,GPIO_17}}; 
+HCSR04 vectorSensores[5] = {{GPIO_3,GPIO_2},{GPIO_19, GPIO_23},{GPIO_21,GPIO_22},{GPIO_19, GPIO_9},{GPIO_18,GPIO_12}}; 
 TaskHandle_t handlerMedicion;
 
 /*==================[internal functions declaration]=========================*/
@@ -54,27 +54,13 @@ static void medirTask(void *pvParameter) {
 
     while (true) {
         ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-
-        UartSendString(UART_PC, "Iniciando medición...\r\n");
-
         medicionesHCSRO4 mediciones = obtenerMediciones(vectorSensores);
 
-        // Sensor 1
+		// Sensor 1
         itoa(mediciones.s1, buffer, 10);
         UartSendString(UART_PC, "Medición sensor 1: ");
         UartSendString(UART_PC, buffer);
         UartSendString(UART_PC, " cm\r\n");
-
-		if (mediciones.s1 >= 60) {
-			setPWM(0);
-		} else {
-            printf("Prendiendo motor!");
-			uint16_t ct = 100-((5/3))*mediciones.s1;
-            
-			setPWM(ct);
-		}
-
-		
 
         // Sensor 2
         itoa(mediciones.s2, buffer, 10);
@@ -93,6 +79,15 @@ static void medirTask(void *pvParameter) {
         UartSendString(UART_PC, "Medición sensor 4: ");
         UartSendString(UART_PC, buffer);
         UartSendString(UART_PC, " cm\r\n");
+
+        // Sensor 5
+        itoa(mediciones.s5, buffer, 10);
+        UartSendString(UART_PC, "Medición sensor 5: ");
+        UartSendString(UART_PC, buffer);
+        UartSendString(UART_PC, " cm\r\n");
+
+        //controlMotoresSegunMedicion(mediciones);
+        
     }
 }
 
@@ -116,7 +111,7 @@ void app_main(void){
     };
 
 	UartInit(&puertoSerie);
-	inicializarMotor(GPIO_23);
+	inicializarMotores(GPIO_16,GPIO_17,GPIO_15);
 	TimerInit(&timerMedicion);
 	TimerStart(TIMER_A);
 

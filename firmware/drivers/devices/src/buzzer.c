@@ -65,6 +65,11 @@ void BuzzerPlayTone(uint16_t freq, uint16_t duration){
 	PWMOff(PWM_BUZZER);
 }
 
+void EncenderBuzzer(uint16_t freq){
+    PWMSetFreq(PWM_BUZZER, freq);
+	PWMOn(PWM_BUZZER);
+}
+
 void BuzzerPlayRtttl(const char * rtttl_melody){
     uint8_t default_dur = 4;
     uint8_t default_oct = 6;

@@ -129,6 +129,8 @@
  */
 void BuzzerInit(gpio_t pin);
 
+void EncenderBuzzer(uint16_t freq);
+
 /**
  * @brief Turn on the buzzer. 
  */
