@@ -1,25 +1,50 @@
-/*! @mainpage Template
+/*! @mainpage Examen parcial EP: "estación de monitoreo"
  *
- * @section genDesc General Description
+ * @section genDesc Descripcion general
  *
- * This section describes how the program works.
+ * Luego de la misteriosa nevada mortal que cubrió Buenos Aires, un pequeño grupo 
+ * de sobrevivientes intenta construir una estación de monitoreo ambiental 
+ * para detectar indicios de una nueva nevada tóxica y la presencia de radiación.
+ * El sistema está compuesto por un sensor de humedad y temperatura DHT11 
+ * y un  sensor analógico de radiación.
+ * Por un lado se debe detectar el riesgo de nevada, la cual se da si la húmedad 
+ * se encuentra por encima del 85%  y la temperatura entre 0 y 2ºC. 
+ * Para esto se deben tomar muestras cada 1 segundo y se envían por UART 
+ * con el siguiente formato:
+ * “Temperatura: 10ºC - Húmedad: 70%”
+ * Si se da la condición de riesgo de nevada se debe indicar el estado encendiendo 
+ * el led Rojo de la placa, además del envío de un mensaje por la UART:
+ * “Temperatura: 1ºC - Húmedad: 90% - RIESGO DE NEVADA”
+ * Además se debe monitorizar la radiación ambiente, para ello se cuenta 
+ * con un sensor analógico que da una salida de 0V para 0mR/h y 3.3V 
+ * para una salida de 100 mR/h. Se deben tomar muestras de radiación cada 5 segundos, 
+ * enviando el mensaje por UART:
+ * “Radiación 30mR/h”
+ * Si se sobrepasan los 40mR/h se debe informar del riesgo por Radiación, 
+ * encendiendo el led Amarillo de la placa, y enviando en el mensaje:
+ * “Radiación 50mR/h - RADIACIÓN ELEVADA”
+ * Si no hay riesgo de nevada ni radiación excesiva, se indicará con el led Verde esta situación.
+ * El botón 1 se utilizará para encender el dispositivo, 
+ * comenzando el muestreo de los sensores y el envío de información. 
+ * El botón 2 apaga el dispositivo, deteniendo el proceso de muestreo 
+ * y apagando todas las notificaciones.
  *
- * <a href="https://drive.google.com/...">Operation Example</a>
  *
- * @section hardConn Hardware Connection
+ * @section hardConn Conexion de hardware
  *
- * |    Peripheral  |   ESP32   	|
+ * |   	DHT11		|   ESP-EDU 	|
  * |:--------------:|:--------------|
- * | 	PIN_X	 	| 	GPIO_X		|
+ * | 	VCC     	|	3V3     	|
+ * | 	DATA	 	| 	GPIO_12		|
+ * | 	GND		 	| 	GND 		|
+ * 
+ * |   	Sensor de radiacion		|   ESP-EDU 	|
+ * |:--------------------------:|:--------------|
+ * | 	VCC     	            |	3V3         |
+ * | 	DATA	 	            | 	GPIO_1(CH1) |
+ * | 	GND		 	            | 	GND 		|                      |
  *
- *
- * @section changelog Changelog
- *
- * |   Date	    | Description                                    |
- * |:----------:|:-----------------------------------------------|
- * | 12/09/2023 | Document creation		                         |
- *
- * @author Albano Peñalva (albano.penalva@uner.edu.ar)
+ * @author Francisco Rode (francisco.rode@ingenieria.uner.edu.ar)
  *
  */
 
@@ -43,42 +68,84 @@
 
 /*==================[internal data definition]===============================*/
 
+/**
+ * @brief Handler de tarea asociada a medicion de temperatura y humedad.
+*/
 TaskHandle_t handlerTareaTyH;
 
+/**
+ * @brief Handler de tarea asociada a medicion de radiacion.
+*/
 TaskHandle_t handlerTareaRadiacion;
 
+/**
+ * @brief Bandera que controla el estado del sistema (true indica encendido y false apagado).
+*/
 bool encendido;
 
+/**
+ * @brief Variable que almacena la humedad mediada por parte del sensor dht11.
+*/
 float humedad;
 
+/**
+ * @brief Variable que almacena la temperatura mediada por parte del sensor dht11.
+*/
 float temperatura;
 
+/**
+ * @brief Variable que almacena la tension sensada por el conversor analogico digital (CAD).
+*/
 uint16_t voltaje = 0;
 
+/**
+ * @brief Variable que almacena la radiacion mediada por parte del sensor dht11.
+*/
 float radiacionMedida;
 
+/**
+ * @brief Bandera que controla si la radiacion es alta (true indica que es alta y false que es normal).
+*/
 bool radiacionAlta;
 
+/**
+ * @brief Bandera que controla si hay riesgo de nevada (true indica que si hay riesgo, y false que no hay riesgo).
+*/
 bool riesgoNevada;
 
 
 
 /*==================[internal functions declaration]=========================*/
 
+/**
+ * @brief Convierte la señal del sensor a radiación en mR/h.
+ * 
+ * @param voltajeSensor Valor leído del CAD.
+ * @return Radiación equivalente en mR/h.
+ */
 float devolverRadiacionSensada(uint16_t voltajeSensor) {
 	return (100/3.3)*voltajeSensor;
 }
 
+/**
+ * @brief Función de callback para el temporizador de temperatura y humedad.
+ */
 void FuncTimerA(void* param)
 {
 	vTaskNotifyGiveFromISR(handlerTareaTyH, pdFALSE);
 }
 
+/**
+ * @brief Función de callback para el temporizador de radiación.
+ */
 void FuncTimerB(void* param)
 {
 	vTaskNotifyGiveFromISR(handlerTareaRadiacion, pdFALSE);
 }
 
+/**
+ * @brief Controla el LED verde si no hay riesgos presentes.
+ */
 void FuncTimerC(void *param) {
 	if (!radiacionAlta && !riesgoNevada) {
 		LedOff(LED_3);
@@ -87,6 +154,9 @@ void FuncTimerC(void *param) {
 	}
 }
 
+/**
+ * @brief Tarea que mide y evalúa la radiación ambiental, y envia datos por UART.
+ */
 static void tareaMedirRadiacion(void *pvParameter){
 
 	while(true)
@@ -111,6 +181,9 @@ static void tareaMedirRadiacion(void *pvParameter){
 	}
 }
 
+/**
+ * @brief Tarea que mide temperatura y humedad, detecta riesgo de nevada, y envia datos por UART.
+ */
 static void tareaMedirTyH(void *pvParameter){
 
 	while(true)
@@ -151,18 +224,35 @@ static void tareaMedirTyH(void *pvParameter){
 	}
 }
 
+/**
+ * @brief Enciende el dispositivo (habilita muestreo y notificaciones).
+ */
 void encenderDispositivo() {
+	TimerStart(TIMER_A);
+	TimerStart(TIMER_B);
+	TimerStart(TIMER_C);
 	encendido = true;
+	
 }
 
+/**
+ * @brief Apaga el dispositivo y todas las señales visuales tanto como los timers.
+ */
 void apagarDispositivo() {
-	encendido = false;
 	LedOff(LED_1);
 	LedOff(LED_2);
 	LedOff(LED_3);
+	TimerStop(TIMER_A);
+	TimerStop(TIMER_B);
+	TimerStop(TIMER_C);
+	encendido = false;
 }
 
 /*==================[external functions definition]==========================*/
+
+/**
+ * @brief Función principal del programa.
+ */
 void app_main(void){
 
 	analog_input_config_t configAnalog = {
