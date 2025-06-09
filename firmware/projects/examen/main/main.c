@@ -39,6 +39,7 @@
 #define CANAL_INGRESO_SENAL CH1
 #define PERIODO_MUESTREO_SENSOR_TyH 1000000
 #define PERIODO_MUESTREO_SENSOR_RADIACION 5000000
+#define GPIO_SENSOR_TyH GPIO_12
 
 /*==================[internal data definition]===============================*/
 
@@ -47,6 +48,10 @@ TaskHandle_t handlerTareaTyH;
 TaskHandle_t handlerTareaRadiacion;
 
 bool encendido;
+
+float humedad;
+
+float temperatura;
 
 /*==================[internal functions declaration]=========================*/
 
@@ -123,6 +128,7 @@ void app_main(void){
 	UartInit(&configPuertoSerie);
 	LedsInit();
 	SwitchesInit();
+	dht11Init(GPIO_SENSOR_TyH);
 	SwitchActivInt(SWITCH_1, encenderDispositivo, 0);
     SwitchActivInt(SWITCH_2, apagarDispositivo, 0);
 	xTaskCreate(&tareaMedirRadiacion, "tareaMedirRadiacion", 2048, NULL, 5, &handlerTareaRadiacion);
