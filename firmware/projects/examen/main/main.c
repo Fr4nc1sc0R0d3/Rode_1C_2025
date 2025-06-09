@@ -53,11 +53,25 @@ float humedad;
 
 float temperatura;
 
+uint16_t voltaje = 0;
+
+float radiacionMedida;
+
+bool radiacionAlta;
+
+bool riesgoNevada;
+
+
+
 /*==================[internal functions declaration]=========================*/
+
+float devolverRadiacionSensada(uint16_t voltajeSensor) {
+	return (100/3.3)*voltajeSensor;
+}
 
 void FuncTimerA(void* param)
 {
-	vTaskNotifyGiveFromISR(handlerTareaTemperatura, pdFALSE);
+	vTaskNotifyGiveFromISR(handlerTareaTyH, pdFALSE);
 }
 
 void FuncTimerB(void* param)
@@ -65,12 +79,35 @@ void FuncTimerB(void* param)
 	vTaskNotifyGiveFromISR(handlerTareaRadiacion, pdFALSE);
 }
 
+void FuncTimerC(void *param) {
+	if (!radiacionAlta && !riesgoNevada) {
+		LedOff(LED_3);
+		LedOff(LED_2);
+		LedOn(LED_1);
+	}
+}
+
 static void tareaMedirRadiacion(void *pvParameter){
 
 	while(true)
 	{
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-		// aca va codigo tarea
+		if (encendido) {
+			char bufferR[15];
+			AnalogInputReadSingle(CANAL_INGRESO_SENAL, &voltaje);
+			sprintf(bufferR, "%.2f", (float)voltaje);
+			UartSendString(UART_PC, "Radiación: ");
+			UartSendString(UART_PC, bufferR);
+			UartSendString(UART_PC, "mR/h");
+			if (devolverRadiacionSensada(voltaje) > 40) {
+				radiacionAlta = true;
+				LedOn(LED_2);
+				UartSendString(UART_PC, " - RADIACIÓN ELEVADA");
+			}
+			radiacionAlta = false;
+			UartSendString(UART_PC, " \r\n");
+		}
+		
 	}
 }
 
@@ -79,7 +116,38 @@ static void tareaMedirTyH(void *pvParameter){
 	while(true)
 	{
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-		// aca va codigo tarea
+		if (encendido) {
+			if(dht11Read(&humedad, &temperatura)) {
+				char bufferH[10];
+				char bufferT[10];
+				sprintf(bufferT, "%.2f", temperatura);
+				sprintf(bufferH, "%.2f", temperatura);
+				UartSendString(UART_PC, "Temperatura: ");
+				UartSendString(UART_PC, bufferT);
+				UartSendString(UART_PC, "°C - ");
+				UartSendString(UART_PC, "Húmedad: ");
+				UartSendString(UART_PC, bufferH);
+				UartSendString(UART_PC, "%");
+				if (humedad > 85) {
+					if (temperatura > 0 && temperatura < 2) {
+						LedOn(LED_3);
+						UartSendString(UART_PC, " - RIESGO DE NEVADA");
+						UartSendString(UART_PC, " \r\n");
+						riesgoNevada = true;
+
+					} else {
+						UartSendString(UART_PC, " \r\n");
+						riesgoNevada = false;
+					}
+				} else {
+					riesgoNevada = false;
+					UartSendString(UART_PC, " \r\n");
+				}
+				
+			}
+		}
+		
+
 	}
 }
 
@@ -89,6 +157,9 @@ void encenderDispositivo() {
 
 void apagarDispositivo() {
 	encendido = false;
+	LedOff(LED_1);
+	LedOff(LED_2);
+	LedOff(LED_3);
 }
 
 /*==================[external functions definition]==========================*/
@@ -103,15 +174,22 @@ void app_main(void){
 
 	timer_config_t timerMuestreoTyH = {
         .timer = TIMER_A,
-        .period = PERIODO_MUESTREO_SENSOR_TEMPERATURA,
+        .period = PERIODO_MUESTREO_SENSOR_TyH,
         .func_p = FuncTimerA,
         .param_p = NULL
     };
 
+	timer_config_t timerControlLeds = {
+		.timer = TIMER_C,
+		.period = PERIODO_MUESTREO_SENSOR_TyH/2,
+		.func_p = FuncTimerB,
+		.param_p = NULL
+	};
+
 	timer_config_t timerMuestreoRadiacion = {
         .timer = TIMER_B,
         .period = PERIODO_MUESTREO_SENSOR_RADIACION,
-        .func_p = FuncTimerB,
+        .func_p = FuncTimerC,
         .param_p = NULL
     };
 
@@ -124,6 +202,7 @@ void app_main(void){
 	
 	TimerInit(&timerMuestreoRadiacion);
 	TimerInit(&timerMuestreoTyH);
+	TimerInit(&timerControlLeds);
 	AnalogInputInit(&configAnalog);
 	UartInit(&configPuertoSerie);
 	LedsInit();
