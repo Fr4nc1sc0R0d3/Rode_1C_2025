@@ -13,9 +13,9 @@ void setPWM(uint8_t ct, uint8_t numeroMotor);
 
 void unsetPWM(uint8_t numeroMotor);
 
-void controlMotoresSegunMedicion(medicionesHCSRO4 mediciones);
+void controlMotoresSegunMedicion(uint16_t *medicionesSensores, float umbral);
 
-uint8_t calcularCT(uint16_t ct);
+float calcularCT(uint16_t ct, float umbral);
 
 
 #endif

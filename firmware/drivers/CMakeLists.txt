@@ -31,6 +31,7 @@ set(srcs
     "devices/src/funcionBCD.c"
     "devices/src/hc_sr04_multiple_control.c"
     "devices/src/motor_pwm.c"
+    "devices/src/dht11.c"
     )
 
 # Always included headers

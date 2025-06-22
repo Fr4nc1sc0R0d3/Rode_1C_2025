@@ -1,6 +1,6 @@
 #include "motor_pwm.h"
 
-#define UMBRAL 40
+
 
 
 // Motores van en numero en una vista superior de izquierda a derecha (sentido rotacion) en sentido creciente.
@@ -49,33 +49,33 @@ void unsetPWM(uint8_t numeroMotor) {
     }
 }
 
-uint8_t calcularCT(uint16_t ct) {
-    return (-100/UMBRAL)*(ct) + 100;
+float calcularCT(uint16_t ct, float umbral) {
+    return (-100/umbral)*(ct) + 100;
 }
 
-void controlMotoresSegunMedicion(medicionesHCSRO4 mediciones) {
+void controlMotoresSegunMedicion(uint16_t *medicionesSensores, float umbral) {
 
-    if (mediciones.s1 <= UMBRAL) {
-        setPWM(calcularCT(mediciones.s1),1);
+    if (medicionesSensores[0] <= umbral) {
+        setPWM(calcularCT(medicionesSensores[0], umbral),1);
     } else {
         unsetPWM(1);
     }
 
-    if (mediciones.s2 <= UMBRAL || mediciones.s3 <= UMBRAL || mediciones.s4 <= UMBRAL) {
-        uint16_t medicionMasPequena = UMBRAL;
-        if (mediciones.s2 <= UMBRAL && mediciones.s2 < medicionMasPequena)
-            medicionMasPequena = mediciones.s2;
-        if (mediciones.s3 <= UMBRAL && mediciones.s3 < medicionMasPequena)
-            medicionMasPequena = mediciones.s3;
-        if (mediciones.s4 <= UMBRAL && mediciones.s4 < medicionMasPequena)
-            medicionMasPequena = mediciones.s4;
-        setPWM(calcularCT(medicionMasPequena), 2);
+    if (medicionesSensores[1] <= umbral || medicionesSensores[2] <= umbral || medicionesSensores[3] <= umbral) {
+        uint16_t medicionMasPequena = umbral;
+        if (medicionesSensores[1] <= umbral && medicionesSensores[1] < medicionMasPequena)
+            medicionMasPequena = medicionesSensores[1];
+        if (medicionesSensores[2] <= umbral && medicionesSensores[2] < medicionMasPequena)
+            medicionMasPequena = medicionesSensores[2];
+        if (medicionesSensores[3] <= umbral && medicionesSensores[3] < medicionMasPequena)
+            medicionMasPequena = medicionesSensores[3];
+        setPWM(calcularCT(medicionMasPequena, umbral), 2);
     } else {
         unsetPWM(2);
     }
 
-    if (mediciones.s5 <= UMBRAL) {
-        setPWM(calcularCT(mediciones.s5),3);
+    if (medicionesSensores[4] <= umbral) {
+        setPWM(calcularCT(medicionesSensores[4], umbral),3);
     } else {
         unsetPWM(3);
     }
