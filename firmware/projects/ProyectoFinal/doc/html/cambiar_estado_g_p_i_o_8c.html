@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.4"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Proyecto Final Electronica Programable: Referencia del Archivo /home/franrode/Escritorio/Rode_1C_2025/firmware/drivers/devices/src/cambiarEstadoGPIO.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="fiuner.png"/></td>
+  <td id="projectalign">
+   <div id="projectname">Proyecto Final Electronica Programable
+   </div>
+   <div id="projectbrief">Vincha ultrasonica</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Buscar','.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('cambiar_estado_g_p_i_o_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funciones</a>  </div>
+  <div class="headertitle"><div class="title">Referencia del Archivo cambiarEstadoGPIO.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implementación de la función que cambia el estado de pines GPIO según un dígito BCD.  
+<a href="#details">Más...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="cambiar_estado_g_p_i_o_8h_source.html">cambiarEstadoGPIO.h</a>&quot;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+</div>
+<p><a href="cambiar_estado_g_p_i_o_8c_source.html">Ir al código fuente de este archivo.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ade7bb4bbd933ce10fb46bc87808d1cf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cambiar_estado_g_p_i_o_8c.html#ade7bb4bbd933ce10fb46bc87808d1cf6">BCDToGPIO</a> (int8_t digitoBCD, <a class="el" href="structgpio_conf__t.html">gpioConf_t</a> *vectorGPIO)</td></tr>
+<tr class="memdesc:ade7bb4bbd933ce10fb46bc87808d1cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cambia el estado de 4 pines GPIO según un dígito BCD.  <a href="cambiar_estado_g_p_i_o_8c.html#ade7bb4bbd933ce10fb46bc87808d1cf6">Más...</a><br /></td></tr>
+<tr class="separator:ade7bb4bbd933ce10fb46bc87808d1cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p >Implementación de la función que cambia el estado de pines GPIO según un dígito BCD. </p>
+<p >Esta función recibe un valor BCD (de 0 a 9) y un vector de configuraciones GPIO. Interpreta cada bit del dígito BCD y enciende o apaga el pin correspondiente. </p>
+
+<p class="definition">Definición en el archivo <a class="el" href="cambiar_estado_g_p_i_o_8c_source.html">cambiarEstadoGPIO.c</a>.</p>
+</div><h2 class="groupheader">Documentación de las funciones</h2>
+<a id="ade7bb4bbd933ce10fb46bc87808d1cf6" name="ade7bb4bbd933ce10fb46bc87808d1cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7bb4bbd933ce10fb46bc87808d1cf6">&#9670;&nbsp;</a></span>BCDToGPIO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void BCDToGPIO </td>
+          <td>(</td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>digitoBCD</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structgpio_conf__t.html">gpioConf_t</a> *&#160;</td>
+          <td class="paramname"><em>vectorGPIO</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cambia el estado de 4 pines GPIO según un dígito BCD. </p>
+<p >Recorre los 4 bits menos significativos del dígito BCD, evaluando si están en 1 o 0, y enciende o apaga el pin correspondiente del arreglo <code>vectorGPIO</code> usando <code>GPIOOn</code> o <code>GPIOOff</code>.</p>
+<p >El bit menos significativo (b0) se corresponde con el primer pin del vector (GPIO_20). Luego, se avanza bit a bit desplazando el número hacia la derecha.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">digitoBCD</td><td>Dígito codificado en BCD (de 0 a 9). </td></tr>
+    <tr><td class="paramname">vectorGPIO</td><td>Puntero a un vector de estructuras <a class="el" href="structgpio_conf__t.html" title="Estructura para configurar un GPIO.">gpioConf_t</a> con la configuración de los pines GPIO. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definición en la línea <a class="el" href="cambiar_estado_g_p_i_o_8c_source.html#l00024">24</a> del archivo <a class="el" href="cambiar_estado_g_p_i_o_8c_source.html">cambiarEstadoGPIO.c</a>.</p>
+
+<p class="reference">Hace referencia a <a class="el" href="gpio__mcu_8c_source.html#l00086">GPIOOff()</a> y <a class="el" href="gpio__mcu_8c_source.html#l00081">GPIOOn()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d9edf6c004b4a7ff14fe9ae7a92214ee.html">firmware</a></li><li class="navelem"><a class="el" href="dir_4774754e228843183aac8de48667fdde.html">drivers</a></li><li class="navelem"><a class="el" href="dir_01f3b75bad316aed7476a5f4cbb25c84.html">devices</a></li><li class="navelem"><a class="el" href="dir_2602097dce81420f4880be8af28b7cd8.html">src</a></li><li class="navelem"><a class="el" href="cambiar_estado_g_p_i_o_8c.html">cambiarEstadoGPIO.c</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
+</body>
+</html>
